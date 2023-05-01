@@ -9,7 +9,7 @@ const stageSchema = new Schema({
   nomEntreprise: { type: String, required: true },
   adresseEntreprise: { type: String, required: true },
   type: { type: String, required: true },
-  nbPoste: { type: Int32Array, required: true },
+  nbPoste: { type: String, required: true },
   description: { type: String, required: true },
   remuneration: { type: String, required: true },
   etudiants: [{ type: mongoose.Types.ObjectId, ref: "Etudiant" }],
