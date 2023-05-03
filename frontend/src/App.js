@@ -1,24 +1,29 @@
-import logo from "./logo.svg";
-import "./App.css";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import AccueilScreen from "./Screens/AccueilScreen";
+import DeroulementStagiaireScreen from "./Screens/DeroulementStagiaireScreen";
+import FAQScreen from "./Screens/FAQScreen";
+import FormulaireEmployeurScreen from "./Screens/FormulaireEmployeurScreen";
+import ProfilsCompetencesScreen from "./Screens/ProfilsCompetencesScreen";
+import MainNavigation from "./Navigation/MainNavigation";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <MainNavigation />
+      <main>
+        <Routes>
+          <Route path="/" element={<AccueilScreen />} />
+
+          <Route path="/FAQ" element={<FAQScreen />} />
+
+          <Route path="/Profils" element={<ProfilsCompetencesScreen />} />
+
+          <Route path="/Deroulement" element={<DeroulementStagiaireScreen />} />
+
+          <Route path="/Employeur" element={<FormulaireEmployeurScreen />} />
+        </Routes>
+      </main>
+    </Router>
   );
 }
 
