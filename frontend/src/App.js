@@ -5,11 +5,13 @@ import FAQScreen from "./Screens/FAQScreen";
 import FormulaireEmployeurScreen from "./Screens/FormulaireEmployeurScreen";
 import ProfilsCompetencesScreen from "./Screens/ProfilsCompetencesScreen";
 import MainNavigation from "./shared/Navigation/MainNavigation";
+import NouveauStage from "./Components/stages/NouveauStage";
 import Footer from "./shared/Footer";
 import React from "react";
 import axios from "axios";
 import { useEffect, useCallback, useState } from "react";
 import { AuthContext } from "./shared/context/auth-context";
+import Auth from "./Screens/Auth";
 
 function App() {
   // useEffect(() => {
@@ -61,7 +63,7 @@ function App() {
   // }
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userId, setUserId] = useState(false);
+  const [userId, setUserId] = useState(null);
   const [isEtudiant, setIsEtudiant] = useState(false);
   const [isEmployeur, setIsEmployeur] = useState(false);
 
@@ -117,6 +119,12 @@ function App() {
                 path="/Employeur"
                 element={<FormulaireEmployeurScreen />}
               />
+
+              {isLoggedIn && isEmployeur && (
+                <Route path="/addStage" element={<NouveauStage />} />
+              )}
+
+              {!isLoggedIn && <Route path="/Connexion" element={<Auth />} />}
             </Routes>
           </main>
         </Router>
