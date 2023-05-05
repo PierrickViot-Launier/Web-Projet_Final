@@ -37,7 +37,19 @@ const creation = async (requete, reponse, next) => {
 
   reponse.status(201).json({ stage: nouveauStage.toObject({ getter: true }) });
 };
-
+const getStageById = async (requete, reponse, next) => {
+  const stageId = requete.params.stageId;
+  let stage;
+  try {
+    stage = await Stage.findById(stageId);
+  } catch (erreur) {
+    return next(new HttpErreur("Erreur lors de la récupération du stage", 500));
+  }
+  if (!stage) {
+    return next(new HttpErreur("Aucun stage trouvé pour l'id fourni", 404));
+  }
+  reponse.json({ stage: stage.toObject({ getters: true }) });
+};
 const getStages = async (requete, reponse, next) => {
   let stages;
   try {
@@ -90,6 +102,8 @@ const modifierStage = async (requete, reponse, next) => {
 
   reponse.status(200).json({ stage: stage.toObject({ getters: true }) });
 }
+
+exports.getStageById = getStageById;
 exports.modifierStage = modifierStage;
 exports.supprimerStage = supprimerStage;
 exports.getStages = getStages;

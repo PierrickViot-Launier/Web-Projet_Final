@@ -53,5 +53,21 @@ const getEtudiants = async (requete, reponse, next) =>{
     .status(201)
     .json({ etudiants:etudiants});
 }
+
+const getEtudiantById = async (requete, reponse, next) => {
+  const etudiantId = requete.params.etudiantId;
+  let etudiant;
+  try {
+    etudiant = await Etudiant.findById(etudiantId);
+  } catch (erreur) {
+    return next(new HttpErreur("Erreur lors de la récupération de l'étudiant", 500));
+  }
+  if (!etudiant) {
+    return next(new HttpErreur("Aucun étudiant trouvé pour l'id fourni", 404));
+  }
+  reponse.json({ etudiant: etudiant.toObject({ getters: true }) });
+};
+
+exports.getEtudiantById = getEtudiantById;
 exports.getEtudiants = getEtudiants;
 exports.inscription = inscription;
