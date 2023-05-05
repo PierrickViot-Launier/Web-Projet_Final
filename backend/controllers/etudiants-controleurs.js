@@ -4,7 +4,7 @@ const HttpErreur = require("../models/http-erreur");
 const Etudiant = require("../models/etudiant");
 
 const inscription = async (requete, reponse, next) => {
-  const { DA, nom, courriel, profil } = requete.body;
+  const { DA, nom, courriel, motDePasse, profil } = requete.body;
 
   let etudiantExiste;
 
@@ -24,6 +24,7 @@ const inscription = async (requete, reponse, next) => {
     DA,
     nom,
     courriel,
+    motDePasse,
     profil,
     stage: null,
   });
@@ -39,20 +40,20 @@ const inscription = async (requete, reponse, next) => {
     .json({ etudiant: nouvelEtudiant.toObject({ getter: true }) });
 };
 
-const getEtudiants = async (requete, reponse, next) =>{
+const getEtudiants = async (requete, reponse, next) => {
   let etudiants;
   try {
     etudiants = await Etudiant.find();
   } catch (erreur) {
-    return next(new HttpErreur("Erreur lors de la récupération des étudiants", 500));
+    return next(
+      new HttpErreur("Erreur lors de la récupération des étudiants", 500)
+    );
   }
   if (!etudiants) {
     return next(new HttpErreur("Aucun étudiant trouvé", 404));
   }
-  reponse
-    .status(201)
-    .json({ etudiants:etudiants});
-}
+  reponse.status(201).json({ etudiants: etudiants });
+};
 
 const getEtudiantById = async (requete, reponse, next) => {
   const etudiantId = requete.params.etudiantId;
@@ -60,7 +61,9 @@ const getEtudiantById = async (requete, reponse, next) => {
   try {
     etudiant = await Etudiant.findById(etudiantId);
   } catch (erreur) {
-    return next(new HttpErreur("Erreur lors de la récupération de l'étudiant", 500));
+    return next(
+      new HttpErreur("Erreur lors de la récupération de l'étudiant", 500)
+    );
   }
   if (!etudiant) {
     return next(new HttpErreur("Aucun étudiant trouvé pour l'id fourni", 404));
