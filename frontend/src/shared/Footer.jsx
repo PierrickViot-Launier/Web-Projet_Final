@@ -2,13 +2,13 @@ import React from "react";
 
 export default function Footer() {
   return (
-    <footer class="bg-neutral-100 text-center text-neutral-600 dark:bg-neutral-600 dark:text-neutral-200 lg:text-left">
-      <div class="bg-neutral-200 p-6 text-center dark:bg-neutral-700">
+    <footer className="bg-neutral-100 text-center text-neutral-600 dark:bg-neutral-600 dark:text-neutral-200 lg:text-left">
+      <div className="bg-neutral-200 p-6 text-center dark:bg-neutral-700">
         <div>
-          <h6 class="mb-4 flex justify-center font-semibold uppercase">
+          <h6 className="mb-4 flex justify-center font-semibold uppercase">
             Contact
           </h6>
-          <p class="mb-4 flex items-center justify-center">
+          <p className="mb-4 flex items-center justify-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -25,7 +25,7 @@ export default function Footer() {
             </svg>
             Sylvain Labranche
           </p>
-          <p class="mb-4 flex items-center justify-center">
+          <p className="mb-4 flex items-center justify-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
