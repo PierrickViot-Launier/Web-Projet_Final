@@ -38,4 +38,17 @@ const creation = async (requete, reponse, next) => {
   reponse.status(201).json({ stage: nouveauStage.toObject({ getter: true }) });
 };
 
+const getStages = async (requete, reponse, next) => {
+  let stages;
+  try {
+    stages = await Stage.find();
+  } catch (erreur) {
+    return next(new HttpErreur("Erreur lors de la récupération des stages", 500));
+  }
+  if (!stages) {
+    return next(new HttpErreur("Aucun stage trouvé", 404));
+  }
+  reponse.json({ stages: stages });
+}
+exports.getStages = getStages;
 exports.creation = creation;
