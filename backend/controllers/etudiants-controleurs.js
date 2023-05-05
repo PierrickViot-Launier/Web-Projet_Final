@@ -42,12 +42,12 @@ const inscription = async (requete, reponse, next) => {
 const getEtudiants = async (requete, reponse, next) =>{
   let etudiants;
   try {
-    etudiants = await Etudiant.find({stage:null});
+    etudiants = await Etudiant.find();
   } catch (erreur) {
     return next(new HttpErreur("Erreur lors de la récupération des étudiants", 500));
   }
   if (!etudiants) {
-    return next(new HttpErreur("Aucun étudiant en recherche de stage", 404));
+    return next(new HttpErreur("Aucun étudiant trouvé", 404));
   }
   reponse
     .status(201)

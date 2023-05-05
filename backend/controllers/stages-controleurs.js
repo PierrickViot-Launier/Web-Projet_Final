@@ -50,5 +50,47 @@ const getStages = async (requete, reponse, next) => {
   }
   reponse.json({ stages: stages });
 }
+
+const supprimerStage = async (requete, reponse, next) => {
+  const stageId = requete.params.stageId;
+  let stage;
+  try {
+    stage = await Stage.findById(stageId).populate("etudiants");
+  } catch {
+    return next(new HttpErreur("Erreur lors de la suppression du stage", 500));
+  }
+  if (!stage) {
+    return next(new HttpErreur("Impossible de trouver le stage", 404));
+  }
+  try {
+    await stage.deleteOne();
+    stage.etudiants.forEach(etudiant => {
+      etudiant.stage = null;
+    });
+    await stage.etudiants.save();
+  } catch (err) {
+    return next(new HttpErreur("Erreur lors de la suppression du stage", 500));
+  }
+  reponse.status(200).json({ message: "Stage supprimé" });
+};
+
+const modifierStage = async (requete, reponse, next) => {
+  const { nbPoste} = requete.body;
+  const stageId = requete.params.stageId;
+
+  let stage;
+
+  try {
+    stage = await Stage.findById(stageId);
+    stage.nbPoste = nbPoste;
+    await stage.save();
+  } catch {
+    return next(new HttpErreur("Erreur lors de la mise à jour du stage", 500));
+  }
+
+  reponse.status(200).json({ stage: stage.toObject({ getters: true }) });
+}
+exports.modifierStage = modifierStage;
+exports.supprimerStage = supprimerStage;
 exports.getStages = getStages;
 exports.creation = creation;
