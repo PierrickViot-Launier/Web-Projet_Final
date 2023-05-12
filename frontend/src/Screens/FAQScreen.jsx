@@ -2,8 +2,8 @@ import React from "react";
 
 export default function FAQScreen() {
   return (
-    <div className="flex justify-center mt-8 mb-8">
-      <div className="max-w-md">
+    <div className="flex justify-center mt-8 mb-8 text-justify">
+      <div className="max-w-xl">
         <h1 className="text-4xl font-bold mb-4">Foire aux questions - FAQ</h1>
 
         <h2 className="text-2xl font-bold mb-2">
@@ -47,7 +47,7 @@ export default function FAQScreen() {
         </h2>
 
         <p className="mb-4">
-          Les stages sont prévus du 21 janvier au 3 mai 2019.
+          Les stages sont prévus du 21 janvier au 3 mai 2023.
         </p>
       </div>
     </div>

@@ -14,7 +14,7 @@ export default function ProfilsCompetencesScreen() {
     }
   }
   return (
-    <div className="flex justify-center mt-8 mb-8">
+    <div className="flex justify-center mt-8 mb-8 text-justify">
       <div className="max-w-2xl">
         <select
           defaultValue="Sélectionnez un profil"
