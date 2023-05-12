@@ -2,6 +2,7 @@ const { v4: uuidv4 } = require("uuid");
 const HttpErreur = require("../models/http-erreur");
 
 const Etudiant = require("../models/etudiant");
+const Stage = require("../models/stage");
 
 const inscription = async (requete, reponse, next) => {
   const { DA, nom, courriel, motDePasse, profil } = requete.body;
@@ -71,6 +72,44 @@ const getEtudiantById = async (requete, reponse, next) => {
   reponse.json({ etudiant: etudiant.toObject({ getters: true }) });
 };
 
+const inscriptionStage = async (requete, reponse, next) => {
+  // console.log(stageId);
+
+  const { etudiantId, stageId } = requete.body;
+
+  let etudiant;
+
+  let stage;
+
+  try {
+    etudiant = await Etudiant.findById(etudiantId);
+  } catch (erreur) {
+    return next(
+      new HttpErreur("Erreur lors de la récupération de l'étudiant", 500)
+    );
+  }
+
+  try {
+    stage = await Stage.findById(stageId);
+  } catch (erreur) {
+    return next(new HttpErreur("Erreur lors de la récupération du stage", 500));
+  }
+
+  try {
+    // console.log(stage);
+    etudiant.stage = stage;
+    await etudiant.save();
+
+    stage.etudiants.push(etudiant);
+
+    await stage.save();
+  } catch {
+    return next(new HttpErreur("Erreur lors de l'inscription au stage", 500));
+  }
+
+  reponse.status(201).json({ etudiant: etudiant.toObject({ getter: true }) });
+};
+
 //const connexion = async (requete, reponse, next) => {
 //  const { courriel, motDePasse } = requete.body;
 //
@@ -81,15 +120,15 @@ const getEtudiantById = async (requete, reponse, next) => {
 ///  } catch {
 //    return next(
 //      new HttpErreur("Connexion échouée, veuillez réessayer plus tard", 500)
- //   );
- // }
+//   );
+// }
 //
 // if (!etudiantExiste || etudiantExiste.motDePasse !== motDePasse) {
 //    return next(new HttpErreur("Courriel ou mot de passe incorrect", 401));
 //  }
 
- // reponse.json({
- //   message: "connexion réussie!",
+// reponse.json({
+//   message: "connexion réussie!",
 //    utilisateur: etudiantExiste.toObject({ getters: true }),
 //  });
 //};
@@ -99,3 +138,4 @@ const getEtudiantById = async (requete, reponse, next) => {
 exports.getEtudiantById = getEtudiantById;
 exports.getEtudiants = getEtudiants;
 exports.inscription = inscription;
+exports.inscriptionStage = inscriptionStage;
