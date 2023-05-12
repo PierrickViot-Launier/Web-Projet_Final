@@ -3,7 +3,7 @@ const HttpErreur = require("../models/http-erreur");
 
 const Employeur = require("../models/employeur");
 
-const creationEmployeur = async (requete, reponse, next) => {
+const inscription = async (requete, reponse, next) => {
   const {nom, courriel, motDePasse} = requete.body;
 
   let employeurExiste;
@@ -38,6 +38,28 @@ const creationEmployeur = async (requete, reponse, next) => {
     .json({ employeur: nouvelEmployeur.toObject({ getter: true }) });
 };
 
+const connexion = async (requete, reponse, next) => {
+  const { courriel, motDePasse } = requete.body;
 
+  let employeurExiste;
 
-exports.creationEmployeur = creationEmployeur;
+  try {
+    employeurExiste = await Employeur.findOne({ courriel: courriel });
+  } catch {
+    return next(
+      new HttpErreur("Connexion échouée, veuillez réessayer plus tard", 500)
+    );
+  }
+
+  if (!employeurExiste || employeurExiste.motDePasse !== motDePasse) {
+    return next(new HttpErreur("Courriel ou mot de passe incorrect", 401));
+  }
+
+  reponse.json({
+    message: "connexion réussie!",
+    employeur: employeurExiste.toObject({ getters: true }),
+  });
+};
+
+exports.connexion = connexion;
+exports.inscription = inscription;

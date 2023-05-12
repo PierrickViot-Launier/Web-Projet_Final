@@ -62,6 +62,8 @@ export default function Auth() {
   const authSubmitHandler = async (event) => {
     event.preventDefault();
     if (isLoginMode) {
+
+      
       try {
           
        
