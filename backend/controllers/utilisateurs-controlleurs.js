@@ -7,9 +7,10 @@ const connexion = async (requete, reponse, next) => {
   const { courriel, motDePasse } = requete.body;
 
   let utilisateurExiste;
-
+  let typeUtilisateur;
   try {
     utilisateurExiste = await Etudiant.findOne({ courriel: courriel });
+    typeUtilisateur = "etudiant"
   } catch {
     return next(
       new HttpErreur("Connexion échouée, veuillez réessayer plus tard", 500)
@@ -18,6 +19,7 @@ const connexion = async (requete, reponse, next) => {
   if (!utilisateurExiste) {
     try {
       utilisateurExiste = await Employeur.findOne({ courriel: courriel });
+      typeUtilisateur = "employeur"
     } catch {
       return next(
         new HttpErreur("Connexion échouée, veuillez réessayer plus tard", 500)
@@ -30,7 +32,8 @@ const connexion = async (requete, reponse, next) => {
   }
   reponse.json({
     message: "connexion réussie!",
-    utilisateur: utilisateurExiste.toObject({ getters: true }),
+    typeUtilisateur: typeUtilisateur,
+    utilisateur: utilisateurExiste.toObject({ getters: true })
   });
 };
 exports.connexion = connexion;

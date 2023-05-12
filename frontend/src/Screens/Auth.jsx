@@ -80,7 +80,12 @@ export default function Auth() {
         );
 
         console.log(reponseData);
-        auth.login(reponseData.utilisateur.id);
+        if (reponseData.typeUtilisateur === "etudiant"){
+          auth.isEtudiant = true;
+        } else {
+          auth.isEmployeur = true;
+        }
+        auth.login(reponseData.utilisateur.id, auth.isEtudiant);
         navigate("/");
       } catch (err) {
         console.log(err);
