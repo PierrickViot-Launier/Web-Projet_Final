@@ -71,30 +71,30 @@ const getEtudiantById = async (requete, reponse, next) => {
   reponse.json({ etudiant: etudiant.toObject({ getters: true }) });
 };
 
-const connexion = async (requete, reponse, next) => {
-  const { courriel, motDePasse } = requete.body;
+//const connexion = async (requete, reponse, next) => {
+//  const { courriel, motDePasse } = requete.body;
+//
+//  let etudiantExiste;
+//
+//  try {
+//    etudiantExiste = await Etudiant.findOne({ courriel: courriel });
+///  } catch {
+//    return next(
+//      new HttpErreur("Connexion échouée, veuillez réessayer plus tard", 500)
+ //   );
+ // }
+//
+// if (!etudiantExiste || etudiantExiste.motDePasse !== motDePasse) {
+//    return next(new HttpErreur("Courriel ou mot de passe incorrect", 401));
+//  }
 
-  let etudiantExiste;
+ // reponse.json({
+ //   message: "connexion réussie!",
+//    utilisateur: etudiantExiste.toObject({ getters: true }),
+//  });
+//};
 
-  try {
-    etudiantExiste = await Etudiant.findOne({ courriel: courriel });
-  } catch {
-    return next(
-      new HttpErreur("Connexion échouée, veuillez réessayer plus tard", 500)
-    );
-  }
-
-  if (!etudiantExiste || etudiantExiste.motDePasse !== motDePasse) {
-    return next(new HttpErreur("Courriel ou mot de passe incorrect", 401));
-  }
-
-  reponse.json({
-    message: "connexion réussie!",
-    utilisateur: etudiantExiste.toObject({ getters: true }),
-  });
-};
-
-exports.connexion = connexion;
+//exports.connexion = connexion;
 
 exports.getEtudiantById = getEtudiantById;
 exports.getEtudiants = getEtudiants;

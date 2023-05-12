@@ -38,28 +38,28 @@ const inscription = async (requete, reponse, next) => {
     .json({ employeur: nouvelEmployeur.toObject({ getter: true }) });
 };
 
-const connexion = async (requete, reponse, next) => {
-  const { courriel, motDePasse } = requete.body;
+//const connexion = async (requete, reponse, next) => {
+//  const { courriel, motDePasse } = requete.body;
+//
+//  let employeurExiste;
+////
+//  try {
+//    employeurExiste = await Employeur.findOne({ courriel: courriel });
+//  } catch {
+//    return next(
+//      new HttpErreur("Connexion échouée, veuillez réessayer plus tard", 500)
+//    );
+//  }
+//
+//  if (!employeurExiste || employeurExiste.motDePasse !== motDePasse) {
+//    return next(new HttpErreur("Courriel ou mot de passe incorrect", 401));
+// }
+//
+//  reponse.json({
+//    message: "connexion réussie!",
+//    employeur: employeurExiste.toObject({ getters: true }),
+//  });
+//};
 
-  let employeurExiste;
-
-  try {
-    employeurExiste = await Employeur.findOne({ courriel: courriel });
-  } catch {
-    return next(
-      new HttpErreur("Connexion échouée, veuillez réessayer plus tard", 500)
-    );
-  }
-
-  if (!employeurExiste || employeurExiste.motDePasse !== motDePasse) {
-    return next(new HttpErreur("Courriel ou mot de passe incorrect", 401));
-  }
-
-  reponse.json({
-    message: "connexion réussie!",
-    employeur: employeurExiste.toObject({ getters: true }),
-  });
-};
-
-exports.connexion = connexion;
+//exports.connexion = connexion;
 exports.inscription = inscription;

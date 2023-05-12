@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 mongoose.set("strictQuery", true);
 
 // const placesRoutes = require("./routes/places-routes");
-// const utilisateursRoutes = require("./routes/utilisateurs-routes");
+const utilisateursRoutes = require("./routes/utilisateurs-routes");
 const etudiantsRoutes = require("./routes/etudiants-routes");
 const stagesRoutes = require("./routes/stages-route");
 const employeursRoutes = require("./routes/employeurs-routes");
@@ -22,10 +22,10 @@ app.use((requete, reponse, next) => {
 });
 
 // app.use("/api/places", placesRoutes);
-// app.use("/api/utilisateurs", utilisateursRoutes);
 app.use("/api/etudiants", etudiantsRoutes);
 app.use("/api/stages", stagesRoutes);
 app.use("/api/employeurs", employeursRoutes);
+app.use("/api/utilisateurs", utilisateursRoutes);
 app.use((requete, reponse, next) => {
   return next(new HttpErreur("Route non trouvée", 404));
 });

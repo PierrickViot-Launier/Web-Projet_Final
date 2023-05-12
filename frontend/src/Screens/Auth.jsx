@@ -68,7 +68,7 @@ export default function Auth() {
           
        
         const reponseData = await sendRequest(
-          "http://localhost:5000/api/employeurs/connexion",
+          "http://localhost:5000/api/utilisateurs/connexion",
           "POST",
           JSON.stringify({
             courriel: formState.inputs.email.value,
@@ -80,7 +80,7 @@ export default function Auth() {
         );
 
         console.log(reponseData);
-        auth.login(reponseData.employeur.id);
+        auth.login(reponseData.utilisateur.id);
         navigate("/");
       } catch (err) {
         console.log(err);
