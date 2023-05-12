@@ -5,41 +5,31 @@ import Card from "../../shared/Card";
 import { useState } from "react";
 export default function StagesDisponibles() {
   const [lesStages, setLesStages] = useState([]);
-  async function getStages() {
+
+  async function getStages(type) {
     try {
       const data = await axios.get("http://localhost:5000/api/stages/");
 
       const stages = data.data.stages;
 
-      setLesStages(stages);
+      if (type) {
+        setLesStages(stages.filter((stage) => stage.type === type));
+      } else {
+        setLesStages(stages);
+      }
     } catch (err) {
       console.log(err);
     }
   }
+
   useEffect(() => {
     getStages();
-    
   }, []);
 
-   function affichageProfil(event) {
-    
-    
-    if (event.target.value === "Réseaux et sécurité") {
-     
-      setLesStages(
-        lesStages.filter((stage) => stage.type === "Réseaux et sécurité")
-      );
-      
-    } else if (event.target.value === "Développement d'applications") {
-      
-        setLesStages(
-          lesStages.filter(
-            (stage) => stage.type === "Développement d'applications"
-          )
-          
-        );
-    }
-    else {
+  function affichageProfil(event) {
+    if (event.target.value) {
+      getStages(event.target.value);
+    } else {
       getStages();
     }
   }
@@ -47,13 +37,13 @@ export default function StagesDisponibles() {
     <div className="flex justify-center mt-8 mb-8 text-justify">
       <div className="max-w-6xl">
         <select
-          defaultValue="Sélectionnez un profil"
-          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          defaultValue=""
+          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg mb-8 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
           name="profils"
           id="profils"
           onChange={affichageProfil}
         >
-          <option value="Sélectionnez un profil">Sélectionnez un profil</option>
+          <option value="">Sélectionnez un profil</option>
           <option value="Réseaux et sécurité">Réseaux et sécurité</option>
           <option value="Développement d'applications">
             Développement d'applications
@@ -64,7 +54,7 @@ export default function StagesDisponibles() {
             .filter((stage) => stage.etudiants.length < stage.nbPoste)
             .map((stage, index) => (
               <li className="ml-4 mb-4" key={index}>
-                <Card className="text-center max-w-xl rounded overflow-hidden shadow-lg flex flex-col bg-white shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:bg-neutral-700 hover:bg-gray">
+                <Card className="text-center max-w-xl rounded overflow-hidden shadow-lg flex flex-col bg-white dark:bg-neutral-700 hover:bg-gray">
                   <h3>{stage.nomEntreprise}</h3>
                   <h3>
                     {" "}

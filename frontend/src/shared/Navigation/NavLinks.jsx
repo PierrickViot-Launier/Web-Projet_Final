@@ -1,10 +1,12 @@
 import React, { useContext } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth-context";
 import "./NavLinks.css";
 
 export default function NavLinks() {
   const auth = useContext(AuthContext);
+
+  const navigate = useNavigate();
 
   return (
     <ul className="navLinks">
@@ -43,7 +45,15 @@ export default function NavLinks() {
 
       {auth.isLoggedIn && (
         <li>
-          <button onClick={auth.logout}>Déconnexion</button>
+          <button
+            onClick={() => {
+              auth.logout();
+
+              navigate("/");
+            }}
+          >
+            Déconnexion
+          </button>
         </li>
       )}
     </ul>
