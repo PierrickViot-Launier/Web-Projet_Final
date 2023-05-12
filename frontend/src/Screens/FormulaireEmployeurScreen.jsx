@@ -1,8 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import NouveauStage from "../Components/stages/NouveauStage";
-
 export default function FormulaireEmployeurScreen() {
+
+
+  
   return (
     <div className="flex justify-center mt-8 mb-8 text-justify">
       <div className="max-w-xl">

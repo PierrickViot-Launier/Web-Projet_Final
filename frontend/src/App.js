@@ -12,6 +12,7 @@ import axios from "axios";
 import { useEffect, useCallback, useState } from "react";
 import { AuthContext } from "./shared/context/auth-context";
 import Auth from "./Screens/Auth";
+import StagesDisponibles from "./Components/stages/StagesDisponibles";
 
 function App() {
   // useEffect(() => {
@@ -115,13 +116,11 @@ function App() {
                 element={<DeroulementStagiaireScreen />}
               />
 
-              <Route
-                path="/Employeur"
-                element={<FormulaireEmployeurScreen />}
-              />
-
               {isLoggedIn && isEmployeur && (
-                <Route path="/addStage" element={<NouveauStage />} />
+                <Route path="/creerStage" element={<FormulaireEmployeurScreen />} />
+              )}
+              {isLoggedIn && isEtudiant && (
+                <Route path="/stagesDisponibles" element={<StagesDisponibles />} />
               )}
 
               {!isLoggedIn && <Route path="/Connexion" element={<Auth />} />}

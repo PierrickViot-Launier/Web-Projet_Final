@@ -31,7 +31,7 @@ export default function ProfilsCompetencesScreen() {
         </select>
         <div id="reseaux" className="hidden  mb-4">
           <h2 className="text-2xl font-bold mb-2">Réseaux et sécurité</h2>
-          <p>
+          <div>
             Nos étudiants en Gestion de réseaux et sécurité ont suivi des cours
             leur permettant de:
             <ul className="list-disc list-inside">
@@ -100,13 +100,13 @@ export default function ProfilsCompetencesScreen() {
                 </ul>
               </li>
             </ul>
-          </p>
+          </div>
         </div>
         <div id="developpement" className="hidden  mb-4">
           <h2 className="text-2xl font-bold mb-2">
             Développement d'applications informatiques
           </h2>
-          <p>
+          <div>
             Nos étudiant en Développement d'applications informatiques ont suivi
             des cours leur permettant de:
             <ul className="list-disc list-inside">
@@ -156,14 +156,12 @@ export default function ProfilsCompetencesScreen() {
                     d’exploitation (Windows et Linux)
                   </li>{" "}
                   <li>les méthodologies Agile telles que SCRUM</li>
-                  <li>
-                    le développement pour plateforme mobile{" "}
-                    <li>l’assurance qualité logiciel</li>
-                  </li>
+                  <li>le développement pour plateforme mobile </li>
+                  <li>l’assurance qualité logiciel</li>
                 </ul>
               </li>
             </ul>
-          </p>
+          </div>
         </div>
       </div>
     </div>

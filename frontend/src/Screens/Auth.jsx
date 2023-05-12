@@ -110,7 +110,7 @@ export default function Auth() {
 
 
   return (
-    <React.Fragment>
+       <div className="flex justify-center mt-8 mb-8 text-justify">
     <Card className="authentication">
       <h2>Connexion requise</h2>
       <hr />
@@ -151,7 +151,6 @@ export default function Auth() {
       <Button inverse onClick={switchModeHandler}>
         Changer pour {isLoginMode ? "Inscription" : "Connexion"}
       </Button>
-    </Card>
-  </React.Fragment> 
+    </Card></div>
   );
 }
