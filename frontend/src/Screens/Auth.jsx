@@ -85,7 +85,6 @@ export default function Auth() {
           }
         );
 
-        console.log(reponseData);
         if (reponseData.typeUtilisateur === "etudiant") {
           auth.isEtudiant = true;
 

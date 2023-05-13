@@ -18,6 +18,7 @@ export default function NouveauStage() {
   const [description, setDescription] = useState("");
   const [remuneration, setRemuneration] = useState("");
   const [open, setOpen] = useState(false);
+  const [openError, setOpenError] = useState(false);
   function personneHandler(event) {
     setPersonneContact(event.target.value);
   }
@@ -84,6 +85,7 @@ export default function NouveauStage() {
 
     } catch (e) {
       console.log(e);
+      setOpenError(true);
     }
   }
 
@@ -253,6 +255,21 @@ export default function NouveauStage() {
         <DialogActions>
           
           <Button onClick={() => setOpen(false)}>OK</Button>
+        </DialogActions>
+      </Dialog>
+
+      <Dialog open={openError} onClose={() => setOpenError(false)}>
+        <DialogTitle>{"Erreur lors de l'ajout de stage"}</DialogTitle>
+
+        <DialogContent>
+          <DialogContentText>
+            {"Le stage n'a pas pu être ajouté. Veuillez contacter le coordonnateur Sylvain Labranche à l'adresse courriel suivante: sylvain.labranche@cmontmorency.qc.ca"}
+          </DialogContentText>
+        </DialogContent>
+
+        <DialogActions>
+          
+          <Button onClick={() => setOpenError(false)}>OK</Button>
         </DialogActions>
       </Dialog>
     </div>

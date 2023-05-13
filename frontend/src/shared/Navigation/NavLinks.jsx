@@ -35,7 +35,15 @@ export default function NavLinks() {
         <li>
           <NavLink to={"/stagesDisponibles"}>Stages disponibles</NavLink>
         </li>
-      )}
+
+      ) }
+      {auth.isLoggedIn && auth.isEtudiant && (
+        <li>
+        <NavLink to={"/stagesPostules"}>Stages postulés</NavLink>
+      </li>
+
+      ) }
+      
 
       {!auth.isLoggedIn && (
         <li>

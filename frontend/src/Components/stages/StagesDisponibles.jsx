@@ -45,7 +45,8 @@ export default function StagesDisponibles() {
 
   return (
     <div className="flex justify-center mt-8 mb-8 text-justify">
-      <div className="max-w-6xl">
+      <div className="max-w-6xl text-center">
+      <h2 className="text-2xl font-bold mb-2">Liste des stages disponibles</h2>
         <ul className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2">
           {lesStages
             .filter((stage) => stage.etudiants.length < stage.nbPoste)

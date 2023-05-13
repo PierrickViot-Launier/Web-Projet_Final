@@ -5,7 +5,7 @@ import FAQScreen from "./Screens/FAQScreen";
 import FormulaireEmployeurScreen from "./Screens/FormulaireEmployeurScreen";
 import ProfilsCompetencesScreen from "./Screens/ProfilsCompetencesScreen";
 import MainNavigation from "./shared/Navigation/MainNavigation";
-import NouveauStage from "./Components/stages/NouveauStage";
+import StagesPostules from "./Components/stages/StagesPostules"
 import Footer from "./shared/Footer";
 import React from "react";
 import axios from "axios";
@@ -79,10 +79,16 @@ function App() {
                 />
               )}
               {isLoggedIn && isEtudiant && (
+                <React.Fragment>
                 <Route
                   path="/stagesDisponibles"
                   element={<StagesDisponibles />}
                 />
+                <Route
+                  path="/stagesPostules"
+                  element={<StagesPostules />}
+                />
+                </React.Fragment>
               )}
 
               {!isLoggedIn && <Route path="/Connexion" element={<Auth />} />}

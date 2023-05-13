@@ -2,7 +2,7 @@ const { v4: uuidv4 } = require("uuid");
 const HttpErreur = require("../models/http-erreur");
 
 const Stage = require("../models/stage");
-
+const Etudiant = require("../models/etudiant");
 const creation = async (requete, reponse, next) => {
   const {
     nomContact,
@@ -103,6 +103,28 @@ const modifierStage = async (requete, reponse, next) => {
   reponse.status(200).json({ stage: stage.toObject({ getters: true }) });
 }
 
+const getStagesByUserId = async (requete, reponse, next) => {
+  const userId = requete.params.userId;
+  let etudiant;
+  let stages
+  try {
+    etudiant = await Etudiant.findById(userId).populate("stages");
+    stages = etudiant.stages
+  } catch (erreur) {
+    return next(new HttpErreur("Erreur lors de la récupération des stages", 500));
+  }
+  if (!stages || stages.length === 0) {
+    return next(
+      new HttpErreur("Aucun stage trouvé pour l'utilisateur fourni", 404)
+    );
+  }
+
+  reponse.json({
+    stages: stages.map((stage) => stage.toObject({ getters: true })),
+  });
+};
+
+exports.getStagesByUserId = getStagesByUserId;
 exports.getStageById = getStageById;
 exports.modifierStage = modifierStage;
 exports.supprimerStage = supprimerStage;
