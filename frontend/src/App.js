@@ -15,66 +15,20 @@ import Auth from "./Screens/Auth";
 import StagesDisponibles from "./Components/stages/StagesDisponibles";
 
 function App() {
-  // useEffect(() => {
-  //   getStudents();
-  //   getStages();
-  //   // createStudent();
-  // }, []);
-
-  // async function getStudents() {
-  //   try {
-  //     const data = await axios.get("http://localhost:5000/api/etudiants/");
-
-  //     const students = data.data.etudiants;
-
-  //     console.log(students);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // }
-
-  // async function getStages() {
-  //   try {
-  //     const data = await axios.get("http://localhost:5000/api/stages/");
-
-  //     const stages = data.data.stages;
-
-  //     console.log(stages);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // }
-
-  // async function createStudent() {
-  //   try {
-  //     const payload = {
-  //       DA: "65321",
-  //       nom: "Mansa Musa",
-  //       courriel: "richest@gmail.com",
-  //       motDePasse: "12345",
-  //       profil: "Développement d'applications",
-  //     };
-  //     await axios.post(
-  //       "http://localhost:5000/api/etudiants/inscription/",
-  //       payload
-  //     );
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // }
-
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userId, setUserId] = useState(null);
   const [isEtudiant, setIsEtudiant] = useState(false);
   const [isEmployeur, setIsEmployeur] = useState(false);
+  const [profile, setProfile] = useState("");
 
-  const login = useCallback((userId, isEtudiant) => {
+  const login = useCallback((userId, isEtudiant, typeProfile) => {
     setIsLoggedIn(true);
     setUserId(userId);
 
     if (isEtudiant) {
       setIsEtudiant(true);
       setIsEmployeur(false);
+      setProfile(typeProfile);
     } else {
       setIsEtudiant(false);
       setIsEmployeur(true);
@@ -86,6 +40,7 @@ function App() {
     setUserId(null);
     setIsEmployeur(false);
     setIsEtudiant(false);
+    setProfile("");
   }, []);
 
   return (
@@ -95,6 +50,7 @@ function App() {
         userId: userId,
         isEmployeur: isEmployeur,
         isEtudiant: isEtudiant,
+        profile: profile,
         login: login,
         logout: logout,
       }}
@@ -117,10 +73,16 @@ function App() {
               />
 
               {isLoggedIn && isEmployeur && (
-                <Route path="/creerStage" element={<FormulaireEmployeurScreen />} />
+                <Route
+                  path="/creerStage"
+                  element={<FormulaireEmployeurScreen />}
+                />
               )}
               {isLoggedIn && isEtudiant && (
-                <Route path="/stagesDisponibles" element={<StagesDisponibles />} />
+                <Route
+                  path="/stagesDisponibles"
+                  element={<StagesDisponibles />}
+                />
               )}
 
               {!isLoggedIn && <Route path="/Connexion" element={<Auth />} />}

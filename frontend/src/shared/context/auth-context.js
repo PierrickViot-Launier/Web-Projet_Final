@@ -5,6 +5,7 @@ export const AuthContext = createContext({
   userId: null,
   isEmployeur: false,
   isEtudiant: false,
+  profile: "",
   login: () => {},
   logout: () => {},
 });

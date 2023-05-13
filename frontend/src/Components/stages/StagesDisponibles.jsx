@@ -28,7 +28,6 @@ export default function StagesDisponibles() {
       const stages = data.data.stages;
 
       if (type) {
-        // stages.map((stage) => console.log(stage.etudiants.length));
         setLesStages(stages.filter((stage) => stage.type === type));
       } else {
         setLesStages(stages);
@@ -39,32 +38,12 @@ export default function StagesDisponibles() {
   }
 
   useEffect(() => {
-    getStages();
+    getStages(auth.profile);
   }, []);
 
-  function affichageProfil(event) {
-    if (event.target.value) {
-      getStages(event.target.value);
-    } else {
-      getStages();
-    }
-  }
   return (
     <div className="flex justify-center mt-8 mb-8 text-justify">
       <div className="max-w-6xl">
-        <select
-          defaultValue=""
-          className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg mb-8 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          name="profils"
-          id="profils"
-          onChange={affichageProfil}
-        >
-          <option value="">Tout les stages</option>
-          <option value="Réseaux et sécurité">Réseaux et sécurité</option>
-          <option value="Développement d'applications">
-            Développement d'applications
-          </option>
-        </select>
         <ul className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2">
           {lesStages
             .filter((stage) => stage.etudiants.length < stage.nbPoste)
@@ -74,6 +53,8 @@ export default function StagesDisponibles() {
                 key={index}
                 onClick={() => {
                   setOpen(true);
+
+                  console.log(stage._id);
 
                   setStageId(stage._id);
                 }}
@@ -105,10 +86,6 @@ export default function StagesDisponibles() {
                   <h3>
                     <span className="font-semibold">Description: </span>
                     {stage.description}
-                  </h3>
-                  <h3>
-                    <span className="font-semibold">ID: </span>
-                    {stage._id}
                   </h3>
                 </Card>
               </li>

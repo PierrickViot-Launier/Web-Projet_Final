@@ -89,10 +89,13 @@ export default function Auth() {
         console.log(reponseData);
         if (reponseData.typeUtilisateur === "etudiant") {
           auth.isEtudiant = true;
+
+          auth.profile = reponseData.utilisateur.profil;
         } else {
           auth.isEmployeur = true;
         }
-        auth.login(reponseData.utilisateur.id, auth.isEtudiant);
+        auth.login(reponseData.utilisateur.id, auth.isEtudiant, auth.profile);
+
         navigate("/");
       } catch (err) {
         // console.log(err);
@@ -131,7 +134,7 @@ export default function Auth() {
   };
 
   return (
-    <div  className="flex justify-center mt-8 mb-8 text-justify">
+    <div className="flex justify-center mt-8 mb-8 text-justify">
       <Card className="authentication">
         <h2>Connexion requise</h2>
         <hr />
