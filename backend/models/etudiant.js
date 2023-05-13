@@ -8,7 +8,7 @@ const etudiantSchema = new Schema({
   courriel: { type: String, required: true },
   motDePasse: { type: String, required: true },
   profil: { type: String, required: true },
-  stage: { type: mongoose.Types.ObjectId, ref: "Stage" },
+  stages: [{ type: mongoose.Types.ObjectId, ref: "Stage" }],
 });
 
 module.exports = mongoose.model("Etudiant", etudiantSchema);

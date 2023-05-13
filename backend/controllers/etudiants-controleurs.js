@@ -72,32 +72,41 @@ const getEtudiantById = async (requete, reponse, next) => {
   reponse.json({ etudiant: etudiant.toObject({ getters: true }) });
 };
 
-const inscriptionStage = async (requete, reponse, next) => {
+const postulationStage = async (requete, reponse, next) => {
   // console.log(stageId);
 
   const { etudiantId, stageId } = requete.body;
-
+  let dejaPostule = false;
   let etudiant;
 
   let stage;
 
   try {
-    etudiant = await Etudiant.findById(etudiantId);
+    etudiant = await Etudiant.findById(etudiantId).populate("stages");
   } catch (erreur) {
     return next(
       new HttpErreur("Erreur lors de la récupération de l'étudiant", 500)
     );
   }
 
+  
   try {
     stage = await Stage.findById(stageId);
   } catch (erreur) {
     return next(new HttpErreur("Erreur lors de la récupération du stage", 500));
   }
+  etudiant.stages.forEach(stage => {
+    if(stage._id == stageId){
+      dejaPostule = true
+    }
+  })
+  if (dejaPostule) {
+    return next(new HttpErreur("L'étudiant a déjà postulé à ce stage", 404));
+  }
 
   try {
     // console.log(stage);
-    etudiant.stage = stage;
+    etudiant.stages.push(stage);
     await etudiant.save();
 
     stage.etudiants.push(etudiant);
@@ -107,7 +116,7 @@ const inscriptionStage = async (requete, reponse, next) => {
     return next(new HttpErreur("Erreur lors de l'inscription au stage", 500));
   }
 
-  reponse.status(201).json({ etudiant: etudiant.toObject({ getter: true }) });
+  reponse.json({ message: "Étudiant inscrit avec succès" });
 };
 
 //const connexion = async (requete, reponse, next) => {
@@ -138,4 +147,4 @@ const inscriptionStage = async (requete, reponse, next) => {
 exports.getEtudiantById = getEtudiantById;
 exports.getEtudiants = getEtudiants;
 exports.inscription = inscription;
-exports.inscriptionStage = inscriptionStage;
+exports.postulationStage = postulationStage;

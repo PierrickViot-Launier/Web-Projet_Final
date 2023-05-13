@@ -1,5 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
 
 export default function NouveauStage() {
   const [personneContact, setPersonneContact] = useState("");
@@ -11,7 +17,7 @@ export default function NouveauStage() {
   const [nbPoste, setNbPoste] = useState("");
   const [description, setDescription] = useState("");
   const [remuneration, setRemuneration] = useState("");
-
+  const [open, setOpen] = useState(false);
   function personneHandler(event) {
     setPersonneContact(event.target.value);
   }
@@ -65,6 +71,17 @@ export default function NouveauStage() {
 
     try {
       await axios.post("http://localhost:5000/api/stages/creation/", payload);
+      setPersonneContact("");
+      setCourriel("");
+      setTelephone("");
+      setNomEntreprise("");
+      setAdresse("");
+      setTypeStage("");
+      setNbPoste("");
+      setDescription("");
+      setRemuneration("");
+      setOpen(true);
+
     } catch (e) {
       console.log(e);
     }
@@ -75,6 +92,7 @@ export default function NouveauStage() {
       <form onSubmit={ajouterNouveauStageHandler}>
         <div className="relative z-0 w-full mb-6 group">
           <input
+            value={personneContact}
             type="text"
             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             id="nomContact"
@@ -90,6 +108,7 @@ export default function NouveauStage() {
         </div>
         <div className="relative z-0 w-full mb-6 group">
           <input
+            value={courriel}
             type="email"
             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             id="courrielContact"
@@ -105,6 +124,7 @@ export default function NouveauStage() {
         </div>
         <div className="relative z-0 w-full mb-6 group">
           <input
+            value={telephone}
             type="text"
             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             id="telephone"
@@ -120,6 +140,7 @@ export default function NouveauStage() {
         </div>
         <div className="relative z-0 w-full mb-6 group">
           <input
+            value={nomEntreprise}
             type="text"
             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             id="nomEntreprise"
@@ -135,6 +156,7 @@ export default function NouveauStage() {
         </div>
         <div className="relative z-0 w-full mb-6 group">
           <input
+            value={adresse}
             type="text"
             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             id="adresse"
@@ -164,6 +186,7 @@ export default function NouveauStage() {
         </div>
         <div className="relative z-0 w-full mb-6 group">
           <input
+            value={nbPoste}
             type="text"
             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             id="nbPostes"
@@ -179,6 +202,7 @@ export default function NouveauStage() {
         </div>
         <div className="relative z-0 w-full mb-6 group">
           <textarea
+            value={description}
             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             id="description"
             rows="3"
@@ -195,6 +219,7 @@ export default function NouveauStage() {
 
         <div className="relative z-0 w-full mb-6 group">
           <input
+            value={remuneration}
             type="text"
             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
             id="remuneration"
@@ -216,6 +241,20 @@ export default function NouveauStage() {
           Ajouter un stage
         </button>
       </form>
+      <Dialog open={open} onClose={() => setOpen(false)}>
+        <DialogTitle>{"Ajout de stage"}</DialogTitle>
+
+        <DialogContent>
+          <DialogContentText>
+            {"Le stage a été ajouté avec succès."}
+          </DialogContentText>
+        </DialogContent>
+
+        <DialogActions>
+          
+          <Button onClick={() => setOpen(false)}>OK</Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 }

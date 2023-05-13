@@ -29,7 +29,6 @@ export default function Auth() {
   const { error, sendRequest, clearError } = useHttpClient();
 
   const [open, setOpen] = useState(false);
-
   let messageErreur;
 
   const [formState, inputHandler, setFormData] = useForm(

@@ -16,6 +16,8 @@ export default function StagesDisponibles() {
   const [lesStages, setLesStages] = useState([]);
 
   const [open, setOpen] = useState(false);
+  
+  const [openError, setOpenError] = useState(false);
 
   const [stageId, setStageId] = useState("");
 
@@ -109,17 +111,31 @@ export default function StagesDisponibles() {
 
               try {
                 await axios.patch(
-                  "http://localhost:5000/api/etudiants/inscription/stage",
+                  "http://localhost:5000/api/etudiants/postulation",
                   { etudiantId: auth.userId, stageId }
                 );
               } catch (err) {
-                console.log(err);
+                setOpenError(true)
               }
             }}
           >
             Oui
           </Button>
           <Button onClick={() => setOpen(false)}>Non</Button>
+        </DialogActions>
+      </Dialog>
+      <Dialog open={openError} onClose={() => setOpenError(false)}>
+        <DialogTitle>{"Erreur lors de la postulation"}</DialogTitle>
+
+        <DialogContent>
+          <DialogContentText>
+            {"Vous avez déjà postulé à ce stage."}
+          </DialogContentText>
+        </DialogContent>
+
+        <DialogActions>
+          
+          <Button onClick={() => setOpenError(false)}>OK</Button>
         </DialogActions>
       </Dialog>
     </div>
