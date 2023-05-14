@@ -24,7 +24,7 @@ const inscription = async (requete, reponse, next) => {
     nom,
     courriel,
     motDePasse,
-    stage: null
+    stages: []
   });
 
   try {
@@ -37,7 +37,29 @@ const inscription = async (requete, reponse, next) => {
     .status(201)
     .json({ employeur: nouvelEmployeur.toObject({ getter: true }) });
 };
+const getStagesByUserId = async (requete, reponse, next) => {
+  const userId = requete.params.userId;
+  let employeur;
+  let stages
+ 
+    try {
+      employeur = await Employeur.findById(userId).populate("stages");
+      stages = employeur.stages
+    } catch (erreur) {
+      return next(new HttpErreur("Erreur lors de la récupération des stages", 500));
+    }
+  
 
+  if (!stages || stages.length === 0) {
+    return next(
+      new HttpErreur("Aucun stage trouvé pour l'employeur fourni", 404)
+    );
+  }
+
+  reponse.json({
+    stages: stages.map((stage) => stage.toObject({ getters: true })),
+  });
+};
 //const connexion = async (requete, reponse, next) => {
 //  const { courriel, motDePasse } = requete.body;
 //
@@ -62,4 +84,5 @@ const inscription = async (requete, reponse, next) => {
 //};
 
 //exports.connexion = connexion;
+exports.getStagesByUserId = getStagesByUserId;
 exports.inscription = inscription;

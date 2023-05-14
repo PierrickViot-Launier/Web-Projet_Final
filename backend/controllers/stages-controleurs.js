@@ -3,6 +3,7 @@ const HttpErreur = require("../models/http-erreur");
 
 const Stage = require("../models/stage");
 const Etudiant = require("../models/etudiant");
+const Employeur = require("../models/employeur");
 const creation = async (requete, reponse, next) => {
   const {
     nomContact,
@@ -14,7 +15,9 @@ const creation = async (requete, reponse, next) => {
     nbPoste,
     description,
     remuneration,
+    employeur
   } = requete.body;
+
 
   let nouveauStage = new Stage({
     nomContact,
@@ -27,10 +30,20 @@ const creation = async (requete, reponse, next) => {
     description,
     remuneration,
     etudiants: [],
+    employeur: await Employeur.findById(employeur),
   });
 
+  let unEmployeur;
   try {
+    unEmployeur = await Employeur.findById(employeur).populate("stages");
+  } catch {
+    return next(new HttpErreur("Erreur lors de la récupération de l'employeur", 500));
+  }
+  try {
+    
     await nouveauStage.save();
+    unEmployeur.stages.push(nouveauStage);
+    await unEmployeur.save();
   } catch {
     return next(new HttpErreur("Erreur lors de l'ajout du stage", 422));
   }
@@ -66,20 +79,32 @@ const getStages = async (requete, reponse, next) => {
 const supprimerStage = async (requete, reponse, next) => {
   const stageId = requete.params.stageId;
   let stage;
+  let employeur;
+  let etudiants;
   try {
-    stage = await Stage.findById(stageId).populate("etudiants");
+    stage = await Stage.findById(stageId).populate("etudiants employeur");
   } catch {
     return next(new HttpErreur("Erreur lors de la suppression du stage", 500));
   }
   if (!stage) {
     return next(new HttpErreur("Impossible de trouver le stage", 404));
   }
+  employeur = stage.employeur;
+  etudiants = stage.etudiants;
   try {
-    await stage.deleteOne();
-    stage.etudiants.forEach(etudiant => {
-      etudiant.stage = null;
-    });
-    await stage.etudiants.save();
+    
+    
+
+    await stage.remove();
+    //etudiants.forEach(etudiant => {
+    //etudiant.stages.pull(stage);
+    //});
+    //await etudiants.save();
+    employeur.stages.pull(stage);
+    await employeur.save();
+
+    
+
   } catch (err) {
     return next(new HttpErreur("Erreur lors de la suppression du stage", 500));
   }
@@ -103,28 +128,7 @@ const modifierStage = async (requete, reponse, next) => {
   reponse.status(200).json({ stage: stage.toObject({ getters: true }) });
 }
 
-const getStagesByUserId = async (requete, reponse, next) => {
-  const userId = requete.params.userId;
-  let etudiant;
-  let stages
-  try {
-    etudiant = await Etudiant.findById(userId).populate("stages");
-    stages = etudiant.stages
-  } catch (erreur) {
-    return next(new HttpErreur("Erreur lors de la récupération des stages", 500));
-  }
-  if (!stages || stages.length === 0) {
-    return next(
-      new HttpErreur("Aucun stage trouvé pour l'utilisateur fourni", 404)
-    );
-  }
 
-  reponse.json({
-    stages: stages.map((stage) => stage.toObject({ getters: true })),
-  });
-};
-
-exports.getStagesByUserId = getStagesByUserId;
 exports.getStageById = getStageById;
 exports.modifierStage = modifierStage;
 exports.supprimerStage = supprimerStage;

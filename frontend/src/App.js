@@ -13,6 +13,7 @@ import { useEffect, useCallback, useState } from "react";
 import { AuthContext } from "./shared/context/auth-context";
 import Auth from "./Screens/Auth";
 import StagesDisponibles from "./Components/stages/StagesDisponibles";
+import OffresDeStage from "./Components/stages/OffresDeStage";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -73,10 +74,16 @@ function App() {
               />
 
               {isLoggedIn && isEmployeur && (
+                <React.Fragment>
                 <Route
                   path="/creerStage"
                   element={<FormulaireEmployeurScreen />}
                 />
+                <Route
+                  path="/gererOffres"
+                  element={<OffresDeStage />}
+                />
+                </React.Fragment>
               )}
               {isLoggedIn && isEtudiant && (
                 <React.Fragment>

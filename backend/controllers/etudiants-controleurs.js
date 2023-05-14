@@ -118,7 +118,29 @@ const postulationStage = async (requete, reponse, next) => {
 
   reponse.json({ message: "Étudiant inscrit avec succès" });
 };
+const getStagesByUserId = async (requete, reponse, next) => {
+  const etudiantId = requete.params.etudiantId;
+  let etudiant;
+  let stages
+ 
+    try {
+      etudiant = await Etudiant.findById(etudiantId).populate("stages");
+      stages = etudiant.stages
+    } catch (erreur) {
+      return next(new HttpErreur("Erreur lors de la récupération des stages", 500));
+    }
+  
 
+  if (!stages || stages.length === 0) {
+    return next(
+      new HttpErreur("Aucun stage trouvé pour l'employeur fourni", 404)
+    );
+  }
+
+  reponse.json({
+    stages: stages.map((stage) => stage.toObject({ getters: true })),
+  });
+};
 //const connexion = async (requete, reponse, next) => {
 //  const { courriel, motDePasse } = requete.body;
 //

@@ -13,6 +13,7 @@ const stageSchema = new Schema({
   description: { type: String, required: true },
   remuneration: { type: String, required: true },
   etudiants: [{ type: mongoose.Types.ObjectId, ref: "Etudiant" }],
+  employeur: { type: mongoose.Types.ObjectId, required: true, ref: "Employeur" }
 });
 
 module.exports = mongoose.model("Stage", stageSchema);

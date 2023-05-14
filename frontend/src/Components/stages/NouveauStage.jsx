@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useContext } from "react";
+import { AuthContext } from "../../shared/context/auth-context";
 import axios from "axios";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
@@ -8,6 +10,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
 export default function NouveauStage() {
+  const auth = useContext(AuthContext);
   const [personneContact, setPersonneContact] = useState("");
   const [courriel, setCourriel] = useState("");
   const [telephone, setTelephone] = useState("");
@@ -68,6 +71,7 @@ export default function NouveauStage() {
       nbPoste,
       description,
       remuneration,
+      employeur: auth.userId
     };
 
     try {
