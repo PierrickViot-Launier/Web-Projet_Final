@@ -109,6 +109,7 @@ export default function OffresDeStage() {
                   "http://localhost:5000/api/stages/" + stageId,
                   { etudiantId: auth.userId, stageId }
                 );
+                getStages();
               } catch (err) {
                 
               }

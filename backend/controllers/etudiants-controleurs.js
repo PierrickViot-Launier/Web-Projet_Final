@@ -130,7 +130,7 @@ const getStagesByUserId = async (requete, reponse, next) => {
       return next(new HttpErreur("Erreur lors de la récupération des stages", 500));
     }
   
-
+    console.log(etudiant)
   if (!stages || stages.length === 0) {
     return next(
       new HttpErreur("Aucun stage trouvé pour l'employeur fourni", 404)
@@ -165,7 +165,7 @@ const getStagesByUserId = async (requete, reponse, next) => {
 //};
 
 //exports.connexion = connexion;
-
+exports.getStagesByUserId = getStagesByUserId;
 exports.getEtudiantById = getEtudiantById;
 exports.getEtudiants = getEtudiants;
 exports.inscription = inscription;

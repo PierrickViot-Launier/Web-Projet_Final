@@ -19,7 +19,7 @@ export default function StagesPostules() {
 
       const stages = data.data.stages;
 
-    
+        
         setLesStages(stages);
       
     } catch (err) {
