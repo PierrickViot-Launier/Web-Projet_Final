@@ -89,17 +89,16 @@ const postulationStage = async (requete, reponse, next) => {
     );
   }
 
-  
   try {
     stage = await Stage.findById(stageId);
   } catch (erreur) {
     return next(new HttpErreur("Erreur lors de la récupération du stage", 500));
   }
-  etudiant.stages.forEach(stage => {
-    if(stage._id == stageId){
-      dejaPostule = true
+  etudiant.stages.forEach((stage) => {
+    if (stage._id == stageId) {
+      dejaPostule = true;
     }
-  })
+  });
   if (dejaPostule) {
     return next(new HttpErreur("L'étudiant a déjà postulé à ce stage", 404));
   }
@@ -121,16 +120,18 @@ const postulationStage = async (requete, reponse, next) => {
 const getStagesByUserId = async (requete, reponse, next) => {
   const etudiantId = requete.params.etudiantId;
   let etudiant;
-  let stages
- 
-    try {
-      etudiant = await Etudiant.findById(etudiantId).populate("stages");
-      stages = etudiant.stages
-    } catch (erreur) {
-      return next(new HttpErreur("Erreur lors de la récupération des stages", 500));
-    }
-  
-    console.log(etudiant)
+  let stages;
+
+  try {
+    etudiant = await Etudiant.findById(etudiantId).populate("stages");
+    stages = etudiant.stages;
+  } catch (erreur) {
+    return next(
+      new HttpErreur("Erreur lors de la récupération des stages", 500)
+    );
+  }
+
+  console.log(etudiant);
   if (!stages || stages.length === 0) {
     return next(
       new HttpErreur("Aucun stage trouvé pour l'employeur fourni", 404)
@@ -141,30 +142,7 @@ const getStagesByUserId = async (requete, reponse, next) => {
     stages: stages.map((stage) => stage.toObject({ getters: true })),
   });
 };
-//const connexion = async (requete, reponse, next) => {
-//  const { courriel, motDePasse } = requete.body;
-//
-//  let etudiantExiste;
-//
-//  try {
-//    etudiantExiste = await Etudiant.findOne({ courriel: courriel });
-///  } catch {
-//    return next(
-//      new HttpErreur("Connexion échouée, veuillez réessayer plus tard", 500)
-//   );
-// }
-//
-// if (!etudiantExiste || etudiantExiste.motDePasse !== motDePasse) {
-//    return next(new HttpErreur("Courriel ou mot de passe incorrect", 401));
-//  }
 
-// reponse.json({
-//   message: "connexion réussie!",
-//    utilisateur: etudiantExiste.toObject({ getters: true }),
-//  });
-//};
-
-//exports.connexion = connexion;
 exports.getStagesByUserId = getStagesByUserId;
 exports.getEtudiantById = getEtudiantById;
 exports.getEtudiants = getEtudiants;

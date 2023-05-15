@@ -15,9 +15,8 @@ const creation = async (requete, reponse, next) => {
     nbPoste,
     description,
     remuneration,
-    employeur
+    employeur,
   } = requete.body;
-
 
   let nouveauStage = new Stage({
     nomContact,
@@ -37,10 +36,11 @@ const creation = async (requete, reponse, next) => {
   try {
     unEmployeur = await Employeur.findById(employeur).populate("stages");
   } catch {
-    return next(new HttpErreur("Erreur lors de la récupération de l'employeur", 500));
+    return next(
+      new HttpErreur("Erreur lors de la récupération de l'employeur", 500)
+    );
   }
   try {
-    
     await nouveauStage.save();
     unEmployeur.stages.push(nouveauStage);
     await unEmployeur.save();
@@ -68,13 +68,15 @@ const getStages = async (requete, reponse, next) => {
   try {
     stages = await Stage.find();
   } catch (erreur) {
-    return next(new HttpErreur("Erreur lors de la récupération des stages", 500));
+    return next(
+      new HttpErreur("Erreur lors de la récupération des stages", 500)
+    );
   }
   if (!stages) {
     return next(new HttpErreur("Aucun stage trouvé", 404));
   }
   reponse.json({ stages: stages });
-}
+};
 
 const supprimerStage = async (requete, reponse, next) => {
   const stageId = requete.params.stageId;
@@ -91,20 +93,19 @@ const supprimerStage = async (requete, reponse, next) => {
   }
   employeur = stage.employeur;
   etudiants = stage.etudiants;
+
   try {
-    
-    
-
     await stage.remove();
-    //etudiants.forEach(etudiant => {
-    //etudiant.stages.pull(stage);
-    //});
-    //await etudiants.save();
+
+    for (i = 0; i < etudiants.length; i++) {
+      etudiants[i].stages.pull(stage);
+
+      await etudiants[i].save();
+    }
+
     employeur.stages.pull(stage);
+
     await employeur.save();
-
-    
-
   } catch (err) {
     return next(new HttpErreur("Erreur lors de la suppression du stage", 500));
   }
@@ -112,7 +113,7 @@ const supprimerStage = async (requete, reponse, next) => {
 };
 
 const modifierStage = async (requete, reponse, next) => {
-  const { nbPoste} = requete.body;
+  const { nbPoste } = requete.body;
   const stageId = requete.params.stageId;
 
   let stage;
@@ -126,8 +127,7 @@ const modifierStage = async (requete, reponse, next) => {
   }
 
   reponse.status(200).json({ stage: stage.toObject({ getters: true }) });
-}
-
+};
 
 exports.getStageById = getStageById;
 exports.modifierStage = modifierStage;

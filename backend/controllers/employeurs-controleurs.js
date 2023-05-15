@@ -4,7 +4,7 @@ const HttpErreur = require("../models/http-erreur");
 const Employeur = require("../models/employeur");
 
 const inscription = async (requete, reponse, next) => {
-  const {nom, courriel, motDePasse} = requete.body;
+  const { nom, courriel, motDePasse } = requete.body;
 
   let employeurExiste;
 
@@ -24,7 +24,7 @@ const inscription = async (requete, reponse, next) => {
     nom,
     courriel,
     motDePasse,
-    stages: []
+    stages: [],
   });
 
   try {
@@ -40,15 +40,16 @@ const inscription = async (requete, reponse, next) => {
 const getStagesByUserId = async (requete, reponse, next) => {
   const userId = requete.params.userId;
   let employeur;
-  let stages
- 
-    try {
-      employeur = await Employeur.findById(userId).populate("stages");
-      stages = employeur.stages
-    } catch (erreur) {
-      return next(new HttpErreur("Erreur lors de la récupération des stages", 500));
-    }
-  
+  let stages;
+
+  try {
+    employeur = await Employeur.findById(userId).populate("stages");
+    stages = employeur.stages;
+  } catch (erreur) {
+    return next(
+      new HttpErreur("Erreur lors de la récupération des stages", 500)
+    );
+  }
 
   if (!stages || stages.length === 0) {
     return next(
@@ -60,29 +61,6 @@ const getStagesByUserId = async (requete, reponse, next) => {
     stages: stages.map((stage) => stage.toObject({ getters: true })),
   });
 };
-//const connexion = async (requete, reponse, next) => {
-//  const { courriel, motDePasse } = requete.body;
-//
-//  let employeurExiste;
-////
-//  try {
-//    employeurExiste = await Employeur.findOne({ courriel: courriel });
-//  } catch {
-//    return next(
-//      new HttpErreur("Connexion échouée, veuillez réessayer plus tard", 500)
-//    );
-//  }
-//
-//  if (!employeurExiste || employeurExiste.motDePasse !== motDePasse) {
-//    return next(new HttpErreur("Courriel ou mot de passe incorrect", 401));
-// }
-//
-//  reponse.json({
-//    message: "connexion réussie!",
-//    employeur: employeurExiste.toObject({ getters: true }),
-//  });
-//};
 
-//exports.connexion = connexion;
 exports.getStagesByUserId = getStagesByUserId;
 exports.inscription = inscription;
