@@ -39,7 +39,7 @@ export default function StagesPostules() {
         <ul className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2">
           {lesStages.map((stage, index) => (
             <li className="ml-4 mb-4" key={index}>
-              <Card className="text-center max-w-xl rounded overflow-hidden shadow-lg flex flex-col bg-white dark:bg-neutral-700 hover:bg-gray">
+              <Card className="text-center max-w-xl rounded overflow-hidden shadow-lg flex flex-col bg-white hover:bg-gray">
                 <h3>{stage.nomEntreprise}</h3>
                 <h3>
                   {" "}

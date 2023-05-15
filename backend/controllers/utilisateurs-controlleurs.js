@@ -2,7 +2,7 @@ const HttpErreur = require("../models/http-erreur");
 
 const Etudiant = require("../models/etudiant");
 const Employeur = require("../models/employeur");
-
+const Cordonnateur = require("../models/cordonnateur");
 const connexion = async (requete, reponse, next) => {
   const { courriel, motDePasse } = requete.body;
 
@@ -25,6 +25,15 @@ const connexion = async (requete, reponse, next) => {
         new HttpErreur("Connexion échouée, veuillez réessayer plus tard", 500)
       );
     }
+    if (!utilisateurExiste) {
+      try {
+        utilisateurExiste = await Cordonnateur.findOne({ courriel: courriel });
+        typeUtilisateur = "cordonnateur"
+      } catch {
+        return next(
+          new HttpErreur("Connexion échouée, veuillez réessayer plus tard", 500)
+        );
+      }
     
   }
   if (!utilisateurExiste || utilisateurExiste.motDePasse !== motDePasse) {
@@ -35,5 +44,6 @@ const connexion = async (requete, reponse, next) => {
     typeUtilisateur: typeUtilisateur,
     utilisateur: utilisateurExiste.toObject({ getters: true })
   });
+};
 };
 exports.connexion = connexion;

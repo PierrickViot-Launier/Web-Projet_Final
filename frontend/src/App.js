@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import React from "react";
 import AccueilScreen from "./Screens/AccueilScreen";
 import DeroulementStagiaireScreen from "./Screens/DeroulementStagiaireScreen";
 import FAQScreen from "./Screens/FAQScreen";
@@ -7,20 +8,19 @@ import ProfilsCompetencesScreen from "./Screens/ProfilsCompetencesScreen";
 import MainNavigation from "./shared/Navigation/MainNavigation";
 import StagesPostules from "./Components/stages/StagesPostules"
 import Footer from "./shared/Footer";
-import React from "react";
-import axios from "axios";
-import { useEffect, useCallback, useState } from "react";
+import { useCallback, useState } from "react";
 import { AuthContext } from "./shared/context/auth-context";
 import Auth from "./Screens/Auth";
 import StagesDisponibles from "./Components/stages/StagesDisponibles";
 import OffresDeStage from "./Components/stages/OffresDeStage";
-
 function App() {
+  
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userId, setUserId] = useState(null);
   const [isEtudiant, setIsEtudiant] = useState(false);
   const [isEmployeur, setIsEmployeur] = useState(false);
   const [profile, setProfile] = useState("");
+ 
 
   const login = useCallback((userId, isEtudiant, typeProfile) => {
     setIsLoggedIn(true);
@@ -56,7 +56,10 @@ function App() {
         logout: logout,
       }}
     >
-      <React.Fragment>
+      <div class="flex flex-col h-screen justify-between">
+  
+
+
         <Router>
           <MainNavigation />
 
@@ -104,7 +107,7 @@ function App() {
         </Router>
 
         <Footer />
-      </React.Fragment>
+        </div>
     </AuthContext.Provider>
   );
 }
