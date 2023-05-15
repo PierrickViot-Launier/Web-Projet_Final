@@ -2,22 +2,21 @@ import React from "react";
 import { useState } from "react";
 import axios from "axios";
 export default function NouvelEtudiant() {
-
   const [DA, setDA] = useState("");
   const [nom, setNom] = useState("");
   const [courriel, setCourriel] = useState("");
   const [profil, setProfil] = useState("");
-  
-  function noDAHandler(event){
+
+  function noDAHandler(event) {
     setDA(event.target.value);
   }
-  function nomHandler(event){
+  function nomHandler(event) {
     setNom(event.target.value);
   }
-  function courrielHandler(event){
+  function courrielHandler(event) {
     setCourriel(event.target.value);
   }
-  function profilHandler(event){
+  function profilHandler(event) {
     setProfil(event.target.value);
   }
   async function ajouterNouvelEtudiantHandler(event) {
@@ -27,11 +26,14 @@ export default function NouvelEtudiant() {
       nom,
       courriel,
       motDePasse: DA,
-      profil
+      profil,
     };
 
     try {
-      await axios.post("http://localhost:5000/api/etudiants/inscription/", payload);
+      await axios.post(
+        "http://localhost:5000/api/etudiants/inscription/",
+        payload
+      );
     } catch (e) {
       console.log(e);
     }
@@ -85,7 +87,7 @@ export default function NouvelEtudiant() {
             Courriel
           </label>
         </div>
-        
+
         <div className="relative z-0 w-full mb-6 group">
           <select
             value={profil}
@@ -99,7 +101,7 @@ export default function NouvelEtudiant() {
             <option value="developpement">Développement d'applications</option>
           </select>
         </div>
-        
+
         <button
           type="submit"
           class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-6 pb-2 pt-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"

@@ -27,6 +27,7 @@ const inscription = async (requete, reponse, next) => {
     courriel,
     motDePasse,
     profil,
+    stagesPostule: [],
     stage: null,
   });
 
@@ -58,7 +59,9 @@ const getEtudiants = async (requete, reponse, next) => {
 
 const getEtudiantById = async (requete, reponse, next) => {
   const etudiantId = requete.params.etudiantId;
+
   let etudiant;
+
   try {
     etudiant = await Etudiant.findById(etudiantId);
   } catch (erreur) {
@@ -66,6 +69,7 @@ const getEtudiantById = async (requete, reponse, next) => {
       new HttpErreur("Erreur lors de la récupération de l'étudiant", 500)
     );
   }
+
   if (!etudiant) {
     return next(new HttpErreur("Aucun étudiant trouvé pour l'id fourni", 404));
   }
@@ -82,7 +86,7 @@ const postulationStage = async (requete, reponse, next) => {
   let stage;
 
   try {
-    etudiant = await Etudiant.findById(etudiantId).populate("stages");
+    etudiant = await Etudiant.findById(etudiantId).populate("stagesPostule");
   } catch (erreur) {
     return next(
       new HttpErreur("Erreur lors de la récupération de l'étudiant", 500)
@@ -94,7 +98,7 @@ const postulationStage = async (requete, reponse, next) => {
   } catch (erreur) {
     return next(new HttpErreur("Erreur lors de la récupération du stage", 500));
   }
-  etudiant.stages.forEach((stage) => {
+  etudiant.stagesPostule.forEach((stage) => {
     if (stage._id == stageId) {
       dejaPostule = true;
     }
@@ -105,7 +109,7 @@ const postulationStage = async (requete, reponse, next) => {
 
   try {
     // console.log(stage);
-    etudiant.stages.push(stage);
+    etudiant.stagesPostule.push(stage);
     await etudiant.save();
 
     stage.etudiants.push(etudiant);
@@ -117,30 +121,34 @@ const postulationStage = async (requete, reponse, next) => {
 
   reponse.json({ message: "Étudiant inscrit avec succès" });
 };
+
 const getStagesByUserId = async (requete, reponse, next) => {
   const etudiantId = requete.params.etudiantId;
+
   let etudiant;
   let stages;
 
   try {
-    etudiant = await Etudiant.findById(etudiantId).populate("stages");
-    stages = etudiant.stages;
+    etudiant = await Etudiant.findById(etudiantId).populate("stagesPostule");
+
+    stages = etudiant.stagesPostule;
   } catch (erreur) {
     return next(
       new HttpErreur("Erreur lors de la récupération des stages", 500)
     );
   }
 
-  console.log(etudiant);
+  // console.log(etudiant);
+
+  console.log(stages);
+
   if (!stages || stages.length === 0) {
     return next(
-      new HttpErreur("Aucun stage trouvé pour l'employeur fourni", 404)
+      new HttpErreur("Aucun stage trouvé pour l'étudiant fourni", 404)
     );
   }
 
-  reponse.json({
-    stages: stages.map((stage) => stage.toObject({ getters: true })),
-  });
+  reponse.json({ stages: stages });
 };
 
 exports.getStagesByUserId = getStagesByUserId;

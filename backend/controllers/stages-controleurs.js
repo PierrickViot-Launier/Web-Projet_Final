@@ -4,6 +4,7 @@ const HttpErreur = require("../models/http-erreur");
 const Stage = require("../models/stage");
 const Etudiant = require("../models/etudiant");
 const Employeur = require("../models/employeur");
+
 const creation = async (requete, reponse, next) => {
   const {
     nomContact,
@@ -50,6 +51,7 @@ const creation = async (requete, reponse, next) => {
 
   reponse.status(201).json({ stage: nouveauStage.toObject({ getter: true }) });
 };
+
 const getStageById = async (requete, reponse, next) => {
   const stageId = requete.params.stageId;
   let stage;
@@ -63,8 +65,10 @@ const getStageById = async (requete, reponse, next) => {
   }
   reponse.json({ stage: stage.toObject({ getters: true }) });
 };
+
 const getStages = async (requete, reponse, next) => {
   let stages;
+
   try {
     stages = await Stage.find();
   } catch (erreur) {
@@ -72,9 +76,11 @@ const getStages = async (requete, reponse, next) => {
       new HttpErreur("Erreur lors de la récupération des stages", 500)
     );
   }
+
   if (!stages) {
     return next(new HttpErreur("Aucun stage trouvé", 404));
   }
+
   reponse.json({ stages: stages });
 };
 
@@ -95,10 +101,10 @@ const supprimerStage = async (requete, reponse, next) => {
   etudiants = stage.etudiants;
 
   try {
-    await stage.remove();
+    // await stage.remove();
 
     for (i = 0; i < etudiants.length; i++) {
-      etudiants[i].stages.pull(stage);
+      etudiants[i].stagesPostule.pull(stage);
 
       await etudiants[i].save();
     }

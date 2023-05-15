@@ -71,7 +71,7 @@ export default function NouveauStage() {
       nbPoste,
       description,
       remuneration,
-      employeur: auth.userId
+      employeur: auth.userId,
     };
 
     try {
@@ -86,7 +86,6 @@ export default function NouveauStage() {
       setDescription("");
       setRemuneration("");
       setOpen(true);
-
     } catch (e) {
       console.log(e);
       setOpenError(true);
@@ -257,7 +256,6 @@ export default function NouveauStage() {
         </DialogContent>
 
         <DialogActions>
-          
           <Button onClick={() => setOpen(false)}>OK</Button>
         </DialogActions>
       </Dialog>
@@ -267,12 +265,13 @@ export default function NouveauStage() {
 
         <DialogContent>
           <DialogContentText>
-            {"Le stage n'a pas pu être ajouté. Veuillez contacter le coordonnateur Sylvain Labranche à l'adresse courriel suivante: sylvain.labranche@cmontmorency.qc.ca"}
+            {
+              "Le stage n'a pas pu être ajouté. Veuillez contacter le coordonnateur Sylvain Labranche à l'adresse courriel suivante: sylvain.labranche@cmontmorency.qc.ca"
+            }
           </DialogContentText>
         </DialogContent>
 
         <DialogActions>
-          
           <Button onClick={() => setOpenError(false)}>OK</Button>
         </DialogActions>
       </Dialog>
