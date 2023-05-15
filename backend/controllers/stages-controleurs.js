@@ -101,7 +101,7 @@ const supprimerStage = async (requete, reponse, next) => {
   etudiants = stage.etudiants;
 
   try {
-    // await stage.remove();
+    await stage.remove();
 
     for (i = 0; i < etudiants.length; i++) {
       etudiants[i].stagesPostule.pull(stage);
@@ -119,14 +119,16 @@ const supprimerStage = async (requete, reponse, next) => {
 };
 
 const modifierStage = async (requete, reponse, next) => {
-  const { nbPoste } = requete.body;
+  const { nbPoste, remuneration } = requete.body;
   const stageId = requete.params.stageId;
 
   let stage;
 
   try {
     stage = await Stage.findById(stageId);
-    stage.nbPoste = nbPoste;
+    stage.nbPoste = nbPoste ? nbPoste : stage.nbPoste;
+
+    stage.remuneration = remuneration ? remuneration : stage.remuneration;
     await stage.save();
   } catch {
     return next(new HttpErreur("Erreur lors de la mise à jour du stage", 500));
