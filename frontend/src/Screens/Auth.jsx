@@ -25,10 +25,10 @@ export default function Auth() {
   const navigate = useNavigate();
   const auth = useContext(AuthContext);
   const [isLoginMode, setIsLoginMode] = useState(true);
-  const {sendRequest} = useHttpClient();
+  const { sendRequest } = useHttpClient();
   const [profil, setProfil] = useState("");
   const [open, setOpen] = useState(false);
-  let text = ""
+  let text = "";
   let messageErreur;
 
   function checkboxEtudiantHandler(event) {
@@ -100,14 +100,23 @@ export default function Auth() {
             "Content-Type": "application/json",
           }
         );
-
-        if (reponseData.typeUtilisateur === "etudiant") {
-          auth.isEtudiant = true;
-
-          auth.profile = reponseData.utilisateur.profil;
-        } else {
-          auth.isEmployeur = true;
+        switch (reponseData.typeUtilisateur) {
+          case "etudiant":
+            auth.isEtudiant = true;
+            auth.profile = reponseData.utilisateur.profil;
+            break;
+          case "employeur":
+            auth.isEmployeur = true;
+            break;
+          case "cordonnateur":
+            auth.isCordonnateur = true;
+            break;
+          default:
+            auth.isEtudiant = false;
+            auth.isEmployeur = false;
+            auth.isCordonnateur = false;
         }
+        
         auth.login(reponseData.utilisateur.id, auth.isEtudiant, auth.profile);
 
         navigate("/");
@@ -251,13 +260,16 @@ export default function Auth() {
             </React.Fragment>
           )}
 
-          
-            <Button
-              type="submit"
-              disabled={((!formState.isValid || profil === "") && text === "Inscription") || !formState.isValid}
-            >
-              {isLoginMode ? text ="Connexion" : text="Inscription"}
-            </Button>
+          <Button
+            type="submit"
+            disabled={
+              ((!formState.isValid || profil === "") &&
+                text === "Inscription") ||
+              !formState.isValid
+            }
+          >
+            {isLoginMode ? (text = "Connexion") : (text = "Inscription")}
+          </Button>
         </form>
         <Button inverse onClick={switchModeHandler}>
           Changer pour {isLoginMode ? "Inscription" : "Connexion"}

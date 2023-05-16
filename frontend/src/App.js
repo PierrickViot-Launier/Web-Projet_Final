@@ -13,6 +13,7 @@ import { AuthContext } from "./shared/context/auth-context";
 import Auth from "./Screens/Auth";
 import StagesDisponibles from "./Components/stages/StagesDisponibles";
 import OffresDeStage from "./Components/stages/OffresDeStage";
+import Etudiants from "./Components/etudiants/Etudiants";
 function App() {
   
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -56,7 +57,7 @@ function App() {
         logout: logout,
       }}
     >
-      <div class="flex flex-col h-screen justify-between">
+      <div className="flex flex-col h-screen justify-between">
   
 
 
@@ -85,6 +86,10 @@ function App() {
                 <Route
                   path="/gererOffres"
                   element={<OffresDeStage />}
+                />
+                <Route
+                  path="/etudiants"
+                  element={<Etudiants />}
                 />
                 </React.Fragment>
               )}

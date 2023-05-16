@@ -64,9 +64,6 @@ export default function OffresDeStage() {
               key={index}
               onClick={() => {
                 setOpen(true);
-
-                console.log(stage._id);
-
                 setStageId(stage._id);
               }}
             >

@@ -36,6 +36,11 @@ export default function NavLinks() {
           <NavLink to={"/gererOffres"}>Offres de stage</NavLink>
         </li>
       )}
+      {auth.isLoggedIn && auth.isEmployeur && (
+        <li>
+          <NavLink to={"/etudiants"}>Etudiants</NavLink>
+        </li>
+      )}
       {auth.isLoggedIn && auth.isEtudiant && (
         <li>
           <NavLink to={"/stagesDisponibles"}>Stages disponibles</NavLink>
