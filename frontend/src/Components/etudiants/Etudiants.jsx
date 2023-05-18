@@ -1,9 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import axios from "axios";
 import { useEffect } from "react";
 import Card from "../../shared/Card";
 import { useState } from "react";
-import { AuthContext } from "../../shared/context/auth-context";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import { Select } from "@mui/material";
@@ -21,7 +20,6 @@ export default function Etudiants() {
   const [stageSelectionne, setStageSelectionne] = useState("");
   const [lesStages, setLesStages] = useState([]);
   const [type, setType] = useState("");
-  const auth = useContext(AuthContext);
 
   function stageHandler(event) {
     setStageSelectionne(event.target.value);

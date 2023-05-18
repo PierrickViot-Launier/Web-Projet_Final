@@ -9,13 +9,12 @@ import MainNavigation from "./shared/Navigation/MainNavigation";
 import StagesPostules from "./Components/stages/StagesPostules";
 import Footer from "./shared/Footer";
 import { useCallback, useState } from "react";
-import { useEffect } from "react";
 import { AuthContext } from "./shared/context/auth-context";
 import Auth from "./Screens/Auth";
 import StagesDisponibles from "./Components/stages/StagesDisponibles";
 import OffresDeStage from "./Components/stages/OffresDeStage";
 import Etudiants from "./Components/etudiants/Etudiants";
-import axios from "axios";
+
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userId, setUserId] = useState(null);
