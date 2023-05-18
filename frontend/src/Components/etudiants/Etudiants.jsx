@@ -47,18 +47,16 @@ export default function Etudiants() {
         stages.filter(
           (stage) =>
             stage.type === type &&
-            parseInt(stage.nbPoste) > stage.etudiants.length()
+            parseInt(stage.nbPoste) > stage.etudiants.length
         )
       );
     } catch (err) {
       console.log(err);
     }
   }
-  async function getProfilEtudiant() {
+  async function getProfilEtudiant(id) {
     try {
-      const data = await axios.get(
-        "http://localhost:5000/api/etudiants/" + etudiantId
-      );
+      const data = await axios.get("http://localhost:5000/api/etudiants/" + id);
 
       const etudiant = data.data.etudiant;
       setType(etudiant.profil);
@@ -68,9 +66,12 @@ export default function Etudiants() {
   }
   useEffect(() => {
     getEtudiants();
-    getProfilEtudiant();
-    getStages(type);
+    // getStages(type);
   }, []);
+
+  useEffect(() => {
+    getStages(type);
+  }, [type]);
 
   return (
     <div className="flex justify-center mt-8 mb-8 text-justify">
@@ -87,6 +88,8 @@ export default function Etudiants() {
               onClick={() => {
                 setOpen(true);
                 setEtudiantId(etudiant._id);
+                console.log(etudiant.profil);
+                getProfilEtudiant(etudiant._id);
               }}
             >
               <Card className="text-center max-w-xl rounded overflow-hidden shadow-lg flex flex-col bg-white hover:bg-gray">

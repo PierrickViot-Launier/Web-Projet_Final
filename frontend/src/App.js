@@ -61,6 +61,7 @@ function App() {
         userId: userId,
         isEmployeur: isEmployeur,
         isEtudiant: isEtudiant,
+        isCordonnateur: isCordonnateur,
         profile: profile,
         login: login,
         logout: logout,
@@ -92,7 +93,10 @@ function App() {
                 </React.Fragment>
               )}
               {isLoggedIn && isCordonnateur && (
-                <Route path="/etudiants" element={<Etudiants />} />
+                <>
+                  <Route path="/gererOffres" element={<OffresDeStage />} />
+                  <Route path="/etudiants" element={<Etudiants />} />
+                </>
               )}
               {isLoggedIn && isEtudiant && (
                 <React.Fragment>

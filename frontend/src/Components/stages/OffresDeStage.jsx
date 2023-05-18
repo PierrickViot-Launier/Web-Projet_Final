@@ -21,16 +21,26 @@ export default function OffresDeStage() {
   const auth = useContext(AuthContext);
 
   async function getStages() {
-    try {
-      const data = await axios.get(
-        "http://localhost:5000/api/employeurs/" + auth.userId + "/stages/"
-      );
+    if (auth.isCordonnateur) {
+      try {
+        const data = await axios.get("http://localhost:5000/api/stages/");
 
-      const stages = data.data.stages;
+        const stages = data.data.stages;
 
-      setLesStages(stages);
-    } catch (err) {
-      console.log(err);
+        setLesStages(stages);
+      } catch {}
+    } else {
+      try {
+        const data = await axios.get(
+          "http://localhost:5000/api/employeurs/" + auth.userId + "/stages/"
+        );
+
+        const stages = data.data.stages;
+
+        setLesStages(stages);
+      } catch (err) {
+        console.log(err);
+      }
     }
   }
 

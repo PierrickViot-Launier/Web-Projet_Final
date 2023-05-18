@@ -31,12 +31,12 @@ export default function NavLinks() {
           <NavLink to={"/creerStage"}>Créer un stage</NavLink>
         </li>
       )}
-        {auth.isLoggedIn && auth.isEmployeur && (
+      {auth.isLoggedIn && (auth.isEmployeur || auth.isCordonnateur) && (
         <li>
           <NavLink to={"/gererOffres"}>Offres de stage</NavLink>
         </li>
       )}
-      {auth.isLoggedIn && auth.isEmployeur && (
+      {auth.isLoggedIn && auth.isCordonnateur && (
         <li>
           <NavLink to={"/etudiants"}>Etudiants</NavLink>
         </li>
@@ -45,15 +45,12 @@ export default function NavLinks() {
         <li>
           <NavLink to={"/stagesDisponibles"}>Stages disponibles</NavLink>
         </li>
-
-      ) }
+      )}
       {auth.isLoggedIn && auth.isEtudiant && (
         <li>
-        <NavLink to={"/stagesPostules"}>Stages postulés</NavLink>
-      </li>
-
-      ) }
-      
+          <NavLink to={"/stagesPostules"}>Stages postulés</NavLink>
+        </li>
+      )}
 
       {!auth.isLoggedIn && (
         <li>
