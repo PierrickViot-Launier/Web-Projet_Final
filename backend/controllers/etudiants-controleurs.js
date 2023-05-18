@@ -61,7 +61,7 @@ const getEtudiantById = async (requete, reponse, next) => {
   let etudiant;
 
   try {
-    etudiant = await Etudiant.findById(etudiantId);
+    etudiant = await Etudiant.findById(etudiantId).populate("stagesPostule stage");
   } catch (erreur) {
     return next(
       new HttpErreur("Erreur lors de la récupération de l'étudiant", 500)
@@ -82,7 +82,7 @@ const postulationStage = async (requete, reponse, next) => {
   let stage;
 
   try {
-    etudiant = await Etudiant.findById(etudiantId);
+    etudiant = await Etudiant.findById(etudiantId).populate("stagesPostule");
   } catch (erreur) {
     return next(
       new HttpErreur("Erreur lors de la récupération de l'étudiant", 500)
@@ -95,7 +95,6 @@ const postulationStage = async (requete, reponse, next) => {
     return next(new HttpErreur("Erreur lors de la récupération du stage", 500));
   }
 
-  console.log(etudiant);
   for (i = 0; i < etudiant.stagesPostule.length; i++) {
     if (etudiant.stagesPostule[i]._id == stageId) {
       dejaPostule = true;
@@ -117,7 +116,7 @@ const postulationStage = async (requete, reponse, next) => {
     return next(new HttpErreur("Erreur lors de l'inscription au stage", 500));
   }
 
-  reponse.json({ message: "Étudiant inscrit avec succès" });
+  reponse.json({ etudiant: etudiant.toObject({ getter: true }) });
 };
 
 const getStagesByUserId = async (requete, reponse, next) => {

@@ -27,17 +27,38 @@ export default function Auth() {
   const { sendRequest } = useHttpClient();
   const [profil, setProfil] = useState("");
   const [open, setOpen] = useState(false);
+  const [DA, setDA] = useState("");
   let messageErreur;
+
+  function noDAHandler(event) {
+    setDA(event.target.value);
+  }
+
+  function checkboxEmployeurHandler(event) {
+    if (event.target.checked) {
+      auth.isEtudiant = false;
+      auth.isEmployeur = true;
+      document.getElementById("inputsEtudiant").style.display = "none";
+      document.getElementById("checkboxEtudiant").checked = false;
+    } else {
+      auth.isEtudiant = true;
+      auth.isEmployeur = false;
+      document.getElementById("inputsEtudiant").style.display = "block";
+      document.getElementById("checkboxEtudiant").checked = true;
+    }
+  }
 
   function checkboxEtudiantHandler(event) {
     if (event.target.checked) {
       auth.isEtudiant = true;
       auth.isEmployeur = false;
       document.getElementById("inputsEtudiant").style.display = "block";
+      document.getElementById("checkboxEmployeur").checked = false;
     } else {
       auth.isEtudiant = false;
       auth.isEmployeur = true;
       document.getElementById("inputsEtudiant").style.display = "none";
+      document.getElementById("checkboxEmployeur").checked = true;
     }
   }
 
@@ -68,6 +89,8 @@ export default function Auth() {
         },
         formState.inputs.email.isValid && formState.inputs.password.isValid
       );
+      setProfil("");
+      setDA("");
     } else {
       setFormData(
         {
@@ -123,7 +146,6 @@ export default function Auth() {
 
         navigate("/");
       } catch (err) {
-
         messageErreur = err.message;
 
         console.log(messageErreur);
@@ -145,15 +167,19 @@ export default function Auth() {
               "Content-Type": "application/json",
             }
           );
-          console.log(reponseData);
-          auth.login(reponseData.employeur.id, auth.isEtudiant, profil);
+          auth.login(
+            reponseData.employeur._id,
+            auth.isEtudiant,
+            auth.isEmployeur,
+            profil
+          );
           navigate("/");
         } else {
           const reponseData = await sendRequest(
             "http://localhost:5000/api/etudiants/inscription",
             "POST",
             JSON.stringify({
-              DA: formState.inputs.DA.value,
+              DA: DA,
               nom: formState.inputs.name.value,
               courriel: formState.inputs.email.value,
               motDePasse: formState.inputs.password.value,
@@ -163,8 +189,12 @@ export default function Auth() {
               "Content-Type": "application/json",
             }
           );
-          console.log(reponseData);
-          auth.login(reponseData.etudiant.id, auth.isEtudiant, profil);
+          auth.login(
+            reponseData.etudiant._id,
+            auth.isEtudiant,
+            auth.isEmployeur,
+            profil
+          );
           navigate("/");
         }
       } catch (err) {
@@ -199,7 +229,7 @@ export default function Auth() {
             id="email"
             type="email"
             label="Courriel"
-            validators={[VALIDATOR_EMAIL()]}
+            validators={[VALIDATOR_REQUIRE(), VALIDATOR_EMAIL()]}
             errorText="Entrez un courriel valide."
             onInput={inputHandler}
           />
@@ -208,7 +238,7 @@ export default function Auth() {
             id="password"
             type="password"
             label="Mot de passe"
-            validators={[VALIDATOR_MINLENGTH(5)]}
+            validators={[VALIDATOR_REQUIRE(), VALIDATOR_MINLENGTH(5)]}
             errorText="Entrez un mot de passe valide, au moins 5 caractères."
             onInput={inputHandler}
           />
@@ -219,34 +249,55 @@ export default function Auth() {
                   id="checkboxEtudiant"
                   type="checkbox"
                   value=""
-                  className="w-4 h-4 text-red-600 bg-gray-100 border-gray-300 rounded focus:ring-red-500 focus:ring-2"
+                  className="mr-3 w-4 h-4 text-red-600 bg-gray-100 border-gray-300 rounded focus:ring-red-500 focus:ring-2"
                   onChange={checkboxEtudiantHandler}
                 />
 
                 <label
                   htmlFor="checkboxEtudiant"
-                  className="ml-2 font-bold text-gray-900"
+                  className="mr-5 font-bold text-gray-900"
                 >
                   Compte étudiant
                 </label>
+                <input
+                  id="checkboxEmployeur"
+                  type="checkbox"
+                  value=""
+                  className="mr-3 w-4 h-4 text-red-600 bg-gray-100 border-gray-300 rounded focus:ring-red-500 focus:ring-2"
+                  onChange={checkboxEmployeurHandler}
+                />
 
+                <label
+                  htmlFor="checkboxEmployeur"
+                  className="mr-5 font-bold text-gray-900"
+                >
+                  Compte employeur
+                </label>
               </div>
               <div id="inputsEtudiant" className="hidden">
-                <Input
-                  element="input"
-                  id="DA"
-                  type="text"
-                  label="Numéro DA"
-                  validators={[VALIDATOR_REQUIRE(), VALIDATOR_MINLENGTH(7)]}
-                  errorText="Veuillez entrer votre numéro DA."
-                  onInput={inputHandler}
-                />
+                <div className="relative z-0 w-full mb-6 group">
+                  <input
+                    value={DA}
+                    type="text"
+                    className="block py-2.5 px-1 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                    id="DA"
+                    placeholder=""
+                    onChange={noDAHandler}
+                  />
+
+                  <label
+                    htmlFor="DA"
+                    className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                  >
+                    Entrez votre numéro DA
+                  </label>
+                </div>
 
                 <select
                   value={profil}
                   className="mb-5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-                  name="profils"
-                  id="profils"
+                  name="profil"
+                  id="profil"
                   onChange={profilHandler}
                 >
                   <option value="">Sélectionnez un profil</option>
@@ -254,7 +305,7 @@ export default function Auth() {
                   <option value="Réseaux et sécurité">
                     Réseaux et sécurité
                   </option>
-                  
+
                   <option value="Développement d'applications">
                     Développement d'applications
                   </option>
@@ -269,7 +320,9 @@ export default function Auth() {
           ) : (
             <Button
               type="submit"
-              disabled={!formState.isValid || profil === ""}
+              disabled={
+                (!formState.isValid) || (!formState.isValid && (profil !== "" || DA !== "") )
+              }
             >
               Inscription
             </Button>
@@ -281,11 +334,14 @@ export default function Auth() {
       </Card>
 
       <Dialog open={open} onClose={() => setOpen(false)}>
-        <DialogTitle>{"Erreur lors de la connexion"}</DialogTitle>
+        <DialogTitle>{isLoginMode ? "Erreur lors de la connexion" : "Erreur lors de l'inscription"}</DialogTitle>
+
+
 
         <DialogContent>
+          
           <DialogContentText>
-            {"Courriel ou mot de passe invalide"}
+            {isLoginMode ? "Courriel ou mot de passe invalide" : "Veuillez entrer tous les champs nécessaires."}
           </DialogContentText>
         </DialogContent>
 

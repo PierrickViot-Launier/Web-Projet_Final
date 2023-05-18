@@ -39,6 +39,7 @@ export default function OffresDeStage() {
 
         setLesStages(stages);
       } catch (err) {
+        setLesStages([])
         console.log(err);
       }
     }
@@ -110,6 +111,11 @@ export default function OffresDeStage() {
                   <span className="font-semibold">Description: </span>
                   {stage.description}
                 </h3>
+
+                <h3>
+                  <span className="font-semibold">Rémunération: </span>
+                  {stage.remuneration}
+                </h3>
               </Card>
             </li>
           ))}
@@ -152,8 +158,9 @@ export default function OffresDeStage() {
                 );
 
                 auth.modification(new Date().toLocaleString());
-              } catch (err) {}
-
+              } catch (err) {
+                console.log("22", err);
+              }
               await getStages();
             }}
           >
@@ -176,8 +183,7 @@ export default function OffresDeStage() {
               } catch (e) {
                 console.log("22", e);
               }
-
-              getStages();
+              await getStages();
             }}
           >
             Modifier

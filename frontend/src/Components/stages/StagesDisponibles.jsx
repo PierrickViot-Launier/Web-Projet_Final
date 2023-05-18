@@ -19,6 +19,8 @@ export default function StagesDisponibles() {
   
   const [openError, setOpenError] = useState(false);
 
+  const [openValid, setOpenValid] = useState(false);
+
   const [stageId, setStageId] = useState("");
 
   const auth = useContext(AuthContext);
@@ -98,11 +100,11 @@ export default function StagesDisponibles() {
       </div>
 
       <Dialog open={open} onClose={() => setOpen(false)}>
-        <DialogTitle>{"Inscription"}</DialogTitle>
+        <DialogTitle>{"Postulation"}</DialogTitle>
 
         <DialogContent>
           <DialogContentText>
-            {"Voulez- vous vous inscrire à ce stage?"}
+            {"Voulez- vous postuler à ce stage?"}
           </DialogContentText>
         </DialogContent>
 
@@ -116,8 +118,9 @@ export default function StagesDisponibles() {
                   "http://localhost:5000/api/etudiants/postulation",
                   { etudiantId: auth.userId, stageId }
                 );
+                setOpenValid(true);
               } catch (err) {
-                setOpenError(true)
+                setOpenError(true);
               }
             }}
           >
@@ -138,6 +141,21 @@ export default function StagesDisponibles() {
         <DialogActions>
           
           <Button onClick={() => setOpenError(false)}>OK</Button>
+        </DialogActions>
+      </Dialog>
+
+      <Dialog open={openValid} onClose={() => setOpenValid(false)}>
+        <DialogTitle>{"Postulation"}</DialogTitle>
+
+        <DialogContent>
+          <DialogContentText>
+            {"Vous avez postulé avec succès à ce stage."}
+          </DialogContentText>
+        </DialogContent>
+
+        <DialogActions>
+          
+          <Button onClick={() => setOpenValid(false)}>OK</Button>
         </DialogActions>
       </Dialog>
     </div>
