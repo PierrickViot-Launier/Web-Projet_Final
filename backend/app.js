@@ -8,6 +8,7 @@ const utilisateursRoutes = require("./routes/utilisateurs-routes");
 const etudiantsRoutes = require("./routes/etudiants-routes");
 const stagesRoutes = require("./routes/stages-route");
 const employeursRoutes = require("./routes/employeurs-routes");
+const coordonnateursRoutes = require("./routes/coordonnateurs-route");
 const HttpErreur = require("./models/http-erreur");
 
 const app = express();
@@ -26,6 +27,7 @@ app.use("/api/etudiants", etudiantsRoutes);
 app.use("/api/stages", stagesRoutes);
 app.use("/api/employeurs", employeursRoutes);
 app.use("/api/utilisateurs", utilisateursRoutes);
+app.use("/api/cordonnateurs", coordonnateursRoutes);
 app.use((requete, reponse, next) => {
   return next(new HttpErreur("Route non trouvée", 404));
 });
