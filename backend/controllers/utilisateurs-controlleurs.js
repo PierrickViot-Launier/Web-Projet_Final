@@ -39,11 +39,12 @@ const connexion = async (requete, reponse, next) => {
   if (!utilisateurExiste || utilisateurExiste.motDePasse !== motDePasse) {
     return next(new HttpErreur("Courriel ou mot de passe incorrect", 401));
   }
-  reponse.json({
-    message: "connexion réussie!",
-    typeUtilisateur: typeUtilisateur,
-    utilisateur: utilisateurExiste.toObject({ getters: true })
-  });
+  
 };
+reponse.json({
+  message: "connexion réussie!",
+  typeUtilisateur: typeUtilisateur,
+  utilisateur: utilisateurExiste.toObject({ getters: true })
+});
 };
 exports.connexion = connexion;

@@ -86,7 +86,7 @@ const postulationStage = async (requete, reponse, next) => {
   let stage;
 
   try {
-    etudiant = await Etudiant.findById(etudiantId).populate("stagesPostule");
+    etudiant = await Etudiant.findById(etudiantId);
   } catch (erreur) {
     return next(
       new HttpErreur("Erreur lors de la récupération de l'étudiant", 500)
@@ -99,13 +99,13 @@ const postulationStage = async (requete, reponse, next) => {
     return next(new HttpErreur("Erreur lors de la récupération du stage", 500));
   }
   
-
-
-  etudiant.stagesPostule.forEach((stage) => {
-    if (stage._id == stageId) {
+  console.log(etudiant)
+  for(i = 0; i < etudiant.stagesPostule.length; i++){
+    if(etudiant.stagesPostule[i]._id == stageId){
       dejaPostule = true;
     }
-  });
+  }
+  
   if (dejaPostule) {
     return next(new HttpErreur("L'étudiant a déjà postulé à ce stage", 404));
   }

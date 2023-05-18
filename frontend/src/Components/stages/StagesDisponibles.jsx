@@ -57,7 +57,8 @@ export default function StagesDisponibles() {
                 onClick={() => {
                   setOpen(true);
 
-                  console.log(stage._id);
+                  
+                console.log(auth.userId);
 
                   setStageId(stage._id);
                 }}
