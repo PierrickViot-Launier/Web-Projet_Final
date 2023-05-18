@@ -24,6 +24,7 @@ export default function Etudiants() {
   function stageHandler(event) {
     setStageSelectionne(event.target.value);
   }
+
   async function getEtudiants() {
     try {
       const data = await axios.get("http://localhost:5000/api/etudiants/");
@@ -37,6 +38,7 @@ export default function Etudiants() {
       console.log(err);
     }
   }
+
   async function getStages(type) {
     try {
       const data = await axios.get("http://localhost:5000/api/stages/");
@@ -54,6 +56,7 @@ export default function Etudiants() {
       console.log(err);
     }
   }
+
   async function getProfilEtudiant(id) {
     try {
       const data = await axios.get("http://localhost:5000/api/etudiants/" + id);
@@ -64,6 +67,7 @@ export default function Etudiants() {
       console.log(err);
     }
   }
+
   useEffect(() => {
     getEtudiants();
     // getStages(type);
@@ -94,11 +98,13 @@ export default function Etudiants() {
             >
               <Card className="text-center max-w-xl rounded overflow-hidden shadow-lg flex flex-col bg-white hover:bg-gray">
                 <h3>{etudiant.nom}</h3>
+
                 <h3>
                   {" "}
                   <span className="font-semibold">DA: </span>
                   {etudiant.DA}
                 </h3>
+
                 <h3>
                   <span className="font-semibold">Courriel: </span>
                   {etudiant.courriel}
@@ -108,9 +114,11 @@ export default function Etudiants() {
                   <span className="font-semibold">Profil: </span>
                   {etudiant.profil}
                 </h3>
+
                 <h3>
                   <span className="font-semibold">Stages postulés: </span>
                 </h3>
+
                 <ul>
                   {etudiant.stagesPostule.length !== 0 ? (
                     etudiant.stagesPostule.map((stage) => (
@@ -120,6 +128,7 @@ export default function Etudiants() {
                     <li>L'étudiant a postulé à aucun stage.</li>
                   )}
                 </ul>
+
                 <h3>
                   <span className="font-semibold">Stage: </span>
                   {etudiant.stage !== null
@@ -138,6 +147,7 @@ export default function Etudiants() {
         <DialogContent>
           <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
             <InputLabel id="stages-label">Stages</InputLabel>
+
             <Select
               labelId="stages-label"
               id="stages"
@@ -148,6 +158,7 @@ export default function Etudiants() {
               <MenuItem value="">
                 <em>Sélectionnez un stage</em>
               </MenuItem>
+
               {lesStages.map((stage, index) => {
                 return (
                   <MenuItem key={index} value={stage._id}>
@@ -170,7 +181,9 @@ export default function Etudiants() {
                   { stageId: stageSelectionne }
                 );
               } catch (err) {}
+
               getStages();
+
               getEtudiants();
             }}
           >
