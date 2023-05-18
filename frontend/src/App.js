@@ -22,7 +22,9 @@ function App() {
   const [isEmployeur, setIsEmployeur] = useState(false);
   const [profile, setProfile] = useState("");
   const [isCordonnateur, setIsCordonnateur] = useState(false);
-  const [derniereModification, setDerniereModification] = useState("");
+  const [derniereModification, setDerniereModification] = useState(
+    new Date().toLocaleString()
+  );
 
   const login = useCallback((userId, isEtudiant, isEmployeur, typeProfile) => {
     setIsLoggedIn(true);
@@ -42,6 +44,10 @@ function App() {
       setIsEmployeur(false);
       setIsEtudiant(false);
     }
+  }, []);
+
+  const modification = useCallback((nouvelleDate) => {
+    setDerniereModification(nouvelleDate);
   }, []);
 
   const logout = useCallback(() => {
@@ -64,6 +70,7 @@ function App() {
         profile: profile,
         login: login,
         logout: logout,
+        modification: modification,
       }}
     >
       <div className="flex flex-col h-screen justify-between">

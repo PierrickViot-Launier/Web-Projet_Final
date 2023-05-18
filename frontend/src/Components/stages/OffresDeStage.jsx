@@ -79,11 +79,13 @@ export default function OffresDeStage() {
             >
               <Card className="text-center max-w-xl rounded overflow-hidden shadow-lg flex flex-col bg-white hover:bg-gray">
                 <h3>{stage.nomEntreprise}</h3>
+
                 <h3>
                   {" "}
                   <span className="font-semibold">Personne contact: </span>
                   {stage.nomContact}
                 </h3>
+
                 <h3>
                   <span className="font-semibold">Courriel: </span>
                   {stage.courrielContact}
@@ -93,14 +95,17 @@ export default function OffresDeStage() {
                   <span className="font-semibold">Adresse: </span>
                   {stage.adresseEntreprise}
                 </h3>
+
                 <h3>
                   <span className="font-semibold">Type de stage: </span>
                   {stage.type}
                 </h3>
+
                 <h3>
                   <span className="font-semibold">Postes disponibles: </span>
                   {stage.nbPoste}
                 </h3>
+
                 <h3>
                   <span className="font-semibold">Description: </span>
                   {stage.description}
@@ -145,6 +150,8 @@ export default function OffresDeStage() {
                   "http://localhost:5000/api/stages/" + stageId,
                   { etudiantId: auth.userId, stageId }
                 );
+
+                auth.modification(new Date().toLocaleString());
               } catch (err) {}
 
               await getStages();
@@ -164,6 +171,8 @@ export default function OffresDeStage() {
                     nbPoste,
                   }
                 );
+
+                auth.modification(new Date().toLocaleString());
               } catch (e) {
                 console.log("22", e);
               }

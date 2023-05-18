@@ -30,6 +30,8 @@ export default function Etudiants() {
 
       const etudiants = data.data.etudiants;
 
+      console.log(etudiants);
+
       setLesEtudiants(etudiants);
     } catch (err) {
       console.log(err);
@@ -121,7 +123,7 @@ export default function Etudiants() {
                 <h3>
                   <span className="font-semibold">Stage: </span>
                   {etudiant.stage !== null
-                    ? etudiant.stage
+                    ? etudiant.stage.nomEntreprise
                     : "L'étudiant n'est pas assigné à un stage."}
                 </h3>
               </Card>

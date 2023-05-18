@@ -9,4 +9,5 @@ export const AuthContext = createContext({
   profile: "",
   login: () => {},
   logout: () => {},
+  modification: () => {},
 });

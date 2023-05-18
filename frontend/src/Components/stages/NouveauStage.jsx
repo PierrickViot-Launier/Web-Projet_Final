@@ -86,6 +86,8 @@ export default function NouveauStage() {
       setDescription("");
       setRemuneration("");
       setOpen(true);
+
+      auth.modification(new Date().toLocaleString());
     } catch (e) {
       console.log(e);
       setOpenError(true);

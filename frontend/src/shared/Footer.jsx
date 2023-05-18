@@ -1,5 +1,5 @@
 import React from "react";
-export default function Footer() {
+export default function Footer({ derniereModification }) {
   return (
     <footer className="bg-neutral-100 text-center text-neutral-600 lg:text-left">
       <div className="bg-neutral-200 p-6 text-center">
@@ -39,7 +39,7 @@ export default function Footer() {
             </a>
           </p>
         </div>
-        <span>Dernière modification: </span>
+        <span>Dernière modification: {derniereModification}</span>
       </div>
     </footer>
   );
