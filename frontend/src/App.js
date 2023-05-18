@@ -101,6 +101,7 @@ function App() {
               {isLoggedIn && isCordonnateur && (
                 <>
                   <Route path="/gererOffres" element={<OffresDeStage />} />
+                  
                   <Route path="/etudiants" element={<Etudiants />} />
                 </>
               )}

@@ -106,6 +106,7 @@ export default function NouveauStage() {
             placeholder=""
             onChange={personneHandler}
           />
+
           <label
             htmlFor="nomContact"
             className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
@@ -122,6 +123,7 @@ export default function NouveauStage() {
             placeholder=""
             onChange={courrielHandler}
           />
+
           <label
             htmlFor="courrielContact"
             className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
@@ -138,6 +140,7 @@ export default function NouveauStage() {
             placeholder=""
             onChange={telephoneHandler}
           />
+
           <label
             htmlFor="telephone"
             className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
@@ -154,6 +157,7 @@ export default function NouveauStage() {
             placeholder=""
             onChange={nomEntrepriseHandler}
           />
+
           <label
             htmlFor="nomEntreprise"
             className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
@@ -170,6 +174,7 @@ export default function NouveauStage() {
             placeholder=""
             onChange={adresseHandler}
           />
+
           <label
             htmlFor="adresse"
             className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
@@ -185,7 +190,9 @@ export default function NouveauStage() {
             onChange={stageHandler}
           >
             <option value="">Type de stage</option>
+
             <option value="Réseaux et sécurité">Réseaux et sécurité</option>
+
             <option value="Développement d'applications">
               Développement d'applications
             </option>
@@ -200,6 +207,7 @@ export default function NouveauStage() {
             placeholder=""
             onChange={posteHandler}
           />
+
           <label
             htmlFor="nbPostes"
             className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
@@ -216,6 +224,7 @@ export default function NouveauStage() {
             placeholder=""
             onChange={descriptionHandler}
           ></textarea>
+
           <label
             htmlFor="description"
             className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
@@ -233,6 +242,7 @@ export default function NouveauStage() {
             placeholder=""
             onChange={remunerationHandler}
           />
+          
           <label
             htmlFor="remuneration"
             className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"

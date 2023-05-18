@@ -17,14 +17,9 @@ export default function StagesPostules() {
       );
 
       const stages = data.data.stages;
-
-      console.log(data);
-
-      // console.log(stages);
-
       setLesStages(stages);
     } catch (err) {
-      // console.log(err);
+      console.log(err);
     }
   }
 
@@ -36,6 +31,7 @@ export default function StagesPostules() {
     <div className="flex justify-center mt-8 mb-8 text-justify">
       <div className="max-w-6xl text-center">
         <h2 className="text-2xl font-bold mb-2">Liste des stages postulés </h2>
+
         <ul className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2">
           {lesStages.map((stage, index) => (
             <li className="ml-4 mb-4" key={index}>
@@ -46,6 +42,7 @@ export default function StagesPostules() {
                   <span className="font-semibold">Personne contact: </span>
                   {stage.nomContact}
                 </h3>
+
                 <h3>
                   <span className="font-semibold">Courriel: </span>
                   {stage.courrielContact}
@@ -55,14 +52,17 @@ export default function StagesPostules() {
                   <span className="font-semibold">Adresse: </span>
                   {stage.adresseEntreprise}
                 </h3>
+
                 <h3>
                   <span className="font-semibold">Type de stage: </span>
                   {stage.type}
                 </h3>
+
                 <h3>
                   <span className="font-semibold">Postes disponibles: </span>
                   {stage.nbPoste}
                 </h3>
+                
                 <h3>
                   <span className="font-semibold">Description: </span>
                   {stage.description}

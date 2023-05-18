@@ -123,7 +123,6 @@ export default function Auth() {
 
         navigate("/");
       } catch (err) {
-        // console.log(err);
 
         messageErreur = err.message;
 
@@ -169,10 +168,8 @@ export default function Auth() {
           navigate("/");
         }
       } catch (err) {
-        // console.log(err);
-
         messageErreur = err;
-
+        console.log(messageErreur);
         setOpen(true);
       }
     }
@@ -225,12 +222,14 @@ export default function Auth() {
                   className="w-4 h-4 text-red-600 bg-gray-100 border-gray-300 rounded focus:ring-red-500 focus:ring-2"
                   onChange={checkboxEtudiantHandler}
                 />
+
                 <label
                   htmlFor="checkboxEtudiant"
                   className="ml-2 font-bold text-gray-900"
                 >
                   Compte étudiant
                 </label>
+
               </div>
               <div id="inputsEtudiant" className="hidden">
                 <Input
@@ -251,9 +250,11 @@ export default function Auth() {
                   onChange={profilHandler}
                 >
                   <option value="">Sélectionnez un profil</option>
+
                   <option value="Réseaux et sécurité">
                     Réseaux et sécurité
                   </option>
+                  
                   <option value="Développement d'applications">
                     Développement d'applications
                   </option>

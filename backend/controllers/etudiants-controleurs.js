@@ -1,6 +1,4 @@
-const { v4: uuidv4 } = require("uuid");
 const HttpErreur = require("../models/http-erreur");
-
 const Etudiant = require("../models/etudiant");
 const Stage = require("../models/stage");
 
@@ -77,8 +75,6 @@ const getEtudiantById = async (requete, reponse, next) => {
 };
 
 const postulationStage = async (requete, reponse, next) => {
-  // console.log(stageId);
-
   const { etudiantId, stageId } = requete.body;
   let dejaPostule = false;
   let etudiant;
@@ -111,7 +107,6 @@ const postulationStage = async (requete, reponse, next) => {
   }
 
   try {
-    // console.log(stage);
     etudiant.stagesPostule.push(stage);
     await etudiant.save();
 
@@ -140,8 +135,6 @@ const getStagesByUserId = async (requete, reponse, next) => {
       new HttpErreur("Erreur lors de la récupération des stages", 500)
     );
   }
-
-  // console.log(etudiant);
 
   console.log(stages);
 

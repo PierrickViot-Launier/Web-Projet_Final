@@ -1,6 +1,4 @@
-const { v4: uuidv4 } = require("uuid");
 const HttpErreur = require("../models/http-erreur");
-
 const Employeur = require("../models/employeur");
 
 const inscription = async (requete, reponse, next) => {

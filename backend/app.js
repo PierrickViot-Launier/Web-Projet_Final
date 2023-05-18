@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", true);
 
-// const placesRoutes = require("./routes/places-routes");
+
 const utilisateursRoutes = require("./routes/utilisateurs-routes");
 const etudiantsRoutes = require("./routes/etudiants-routes");
 const stagesRoutes = require("./routes/stages-route");
@@ -22,7 +22,6 @@ app.use((requete, reponse, next) => {
   next();
 });
 
-// app.use("/api/places", placesRoutes);
 app.use("/api/etudiants", etudiantsRoutes);
 app.use("/api/stages", stagesRoutes);
 app.use("/api/employeurs", employeursRoutes);
@@ -52,4 +51,4 @@ mongoose
     console.log(erreur);
   });
 
-//app.listen(5000);
+

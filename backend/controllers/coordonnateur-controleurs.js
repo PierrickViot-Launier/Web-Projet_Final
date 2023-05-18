@@ -1,7 +1,4 @@
-const { v4: uuidv4 } = require("uuid");
 const HttpErreur = require("../models/http-erreur");
-
-const Stage = require("../models/stage");
 const Coordonnateur = require("../models/cordonnateur");
 
 const creation = async (requete, reponse, next) => {

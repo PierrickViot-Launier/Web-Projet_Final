@@ -30,9 +30,6 @@ export default function Etudiants() {
       const data = await axios.get("http://localhost:5000/api/etudiants/");
 
       const etudiants = data.data.etudiants;
-
-      console.log(etudiants);
-
       setLesEtudiants(etudiants);
     } catch (err) {
       console.log(err);
@@ -70,7 +67,6 @@ export default function Etudiants() {
 
   useEffect(() => {
     getEtudiants();
-    // getStages(type);
   }, []);
 
   useEffect(() => {

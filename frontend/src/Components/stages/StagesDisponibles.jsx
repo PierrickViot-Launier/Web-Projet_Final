@@ -56,10 +56,6 @@ export default function StagesDisponibles() {
                 key={index}
                 onClick={() => {
                   setOpen(true);
-
-                  
-                console.log(auth.userId);
-
                   setStageId(stage._id);
                 }}
               >
@@ -70,6 +66,7 @@ export default function StagesDisponibles() {
                     <span className="font-semibold">Personne contact: </span>
                     {stage.nomContact}
                   </h3>
+
                   <h3>
                     <span className="font-semibold">Courriel: </span>
                     {stage.courrielContact}
@@ -79,14 +76,17 @@ export default function StagesDisponibles() {
                     <span className="font-semibold">Adresse: </span>
                     {stage.adresseEntreprise}
                   </h3>
+
                   <h3>
                     <span className="font-semibold">Type de stage: </span>
                     {stage.type}
                   </h3>
+
                   <h3>
                     <span className="font-semibold">Postes disponibles: </span>
                     {stage.nbPoste}
                   </h3>
+                  
                   <h3>
                     <span className="font-semibold">Description: </span>
                     {stage.description}
