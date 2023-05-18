@@ -28,7 +28,6 @@ export default function Auth() {
   const { sendRequest } = useHttpClient();
   const [profil, setProfil] = useState("");
   const [open, setOpen] = useState(false);
-  let text = "";
   let messageErreur;
 
   function checkboxEtudiantHandler(event) {
@@ -116,8 +115,13 @@ export default function Auth() {
             auth.isEmployeur = false;
             auth.isCordonnateur = false;
         }
-        
-        auth.login(reponseData.utilisateur.id, auth.isEtudiant, auth.profile);
+
+        auth.login(
+          reponseData.utilisateur.id,
+          auth.isEtudiant,
+          auth.isEmployeur,
+          auth.profile
+        );
 
         navigate("/");
       } catch (err) {
@@ -243,7 +247,7 @@ export default function Auth() {
 
                 <select
                   value={profil}
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                  className="mb-5 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                   name="profils"
                   id="profils"
                   onChange={profilHandler}
@@ -259,17 +263,18 @@ export default function Auth() {
               </div>
             </React.Fragment>
           )}
-
-          <Button
-            type="submit"
-            disabled={
-              ((!formState.isValid || profil === "") &&
-                text === "Inscription") ||
-              !formState.isValid
-            }
-          >
-            {isLoginMode ? (text = "Connexion") : (text = "Inscription")}
-          </Button>
+          {isLoginMode ? (
+            <Button type="submit" disabled={!formState.isValid}>
+              Connexion
+            </Button>
+          ) : (
+            <Button
+              type="submit"
+              disabled={!formState.isValid || profil === ""}
+            >
+              Inscription
+            </Button>
+          )}
         </form>
         <Button inverse onClick={switchModeHandler}>
           Changer pour {isLoginMode ? "Inscription" : "Connexion"}

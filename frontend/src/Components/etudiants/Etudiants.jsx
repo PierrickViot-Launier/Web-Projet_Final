@@ -42,13 +42,14 @@ export default function Etudiants() {
       const data = await axios.get("http://localhost:5000/api/stages/");
 
       const stages = data.data.stages;
-    
-      if (type) {
-        setLesStages(stages.filter((stage) => (stage.type === type) && (parseInt(stage.nbPoste) > stage.etudiants.length())))
-        
-      } else {
-        setLesStages(stages);
-      }
+
+      setLesStages(
+        stages.filter(
+          (stage) =>
+            stage.type === type &&
+            parseInt(stage.nbPoste) > stage.etudiants.length()
+        )
+      );
     } catch (err) {
       console.log(err);
     }
@@ -61,22 +62,20 @@ export default function Etudiants() {
 
       const etudiant = data.data.etudiant;
       setType(etudiant.profil);
-
-
     } catch (err) {
       console.log(err);
     }
   }
   useEffect(() => {
-    getStages(type);
     getEtudiants();
     getProfilEtudiant();
+    getStages(type);
   }, []);
 
   return (
     <div className="flex justify-center mt-8 mb-8 text-justify">
       <div className="max-w-6xl text-center">
-        <h2 className="text-2xl font-bold mb-2">
+        <h2 className="text-2xl font-bold mb-5">
           Liste des étudiants en recherche de stage
         </h2>
 
@@ -111,10 +110,11 @@ export default function Etudiants() {
                 </h3>
                 <ul>
                   {etudiant.stagesPostule.length !== 0 ? (
-                    etudiant.stagesPostule.map((stage) => <li>{stage.nomEntreprise}</li>)
+                    etudiant.stagesPostule.map((stage) => (
+                      <li>{stage.nomEntreprise}</li>
+                    ))
                   ) : (
                     <li>L'étudiant a postulé à aucun stage.</li>
-                    
                   )}
                 </ul>
                 <h3>
@@ -133,26 +133,26 @@ export default function Etudiants() {
         <DialogTitle>{"Assigner un stage à l'étudiant"}</DialogTitle>
 
         <DialogContent>
-        <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
-        <InputLabel id="stages-label">Stages</InputLabel>
-          <Select
-            labelId="stages-label"
-            id="stages"
-            label="Stages"
-            value={stageSelectionne}
-            onChange={stageHandler}
-          >
-            <MenuItem value="">
-            <em>Sélectionnez un stage</em>
-          </MenuItem>
-            {lesStages.map((stage, index) => {
-              return (
-                <MenuItem key={index} value={stage._id}>
-                  {stage.nomEntreprise}
-                </MenuItem>
-              );
-            })}
-          </Select>
+          <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+            <InputLabel id="stages-label">Stages</InputLabel>
+            <Select
+              labelId="stages-label"
+              id="stages"
+              label="Stages"
+              value={stageSelectionne}
+              onChange={stageHandler}
+            >
+              <MenuItem value="">
+                <em>Sélectionnez un stage</em>
+              </MenuItem>
+              {lesStages.map((stage, index) => {
+                return (
+                  <MenuItem key={index} value={stage._id}>
+                    {stage.nomEntreprise}
+                  </MenuItem>
+                );
+              })}
+            </Select>
           </FormControl>
         </DialogContent>
 
@@ -165,8 +165,6 @@ export default function Etudiants() {
                 await axios.patch(
                   "http://localhost:5000/api/etudiants/" + etudiantId,
                   { stageId: stageSelectionne }
-
-
                 );
               } catch (err) {}
               getStages();

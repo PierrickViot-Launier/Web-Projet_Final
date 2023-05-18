@@ -53,7 +53,7 @@ export default function OffresDeStage() {
   return (
     <div className="flex justify-center mt-8 mb-8 text-justify">
       <div className="max-w-6xl text-center">
-        <h2 className="text-2xl font-bold mb-2">
+        <h2 className="text-2xl font-bold mb-5">
           Liste des offres de stage créées
         </h2>
 
