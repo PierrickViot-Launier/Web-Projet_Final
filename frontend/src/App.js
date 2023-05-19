@@ -1,5 +1,10 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import React from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  redirect,
+} from "react-router-dom";
+import React, { useEffect } from "react";
 import AccueilScreen from "./Screens/AccueilScreen";
 import DeroulementStagiaireScreen from "./Screens/DeroulementStagiaireScreen";
 import FAQScreen from "./Screens/FAQScreen";
@@ -57,6 +62,10 @@ function App() {
     setIsEtudiant(false);
     setIsCordonnateur(false);
     setProfile("");
+  }, []);
+
+  useEffect(() => {
+    return redirect("/");
   }, []);
 
   return (
@@ -117,6 +126,7 @@ function App() {
 
               {!isLoggedIn && <Route path="/Connexion" element={<Auth />} />}
             </Routes>
+            redirect()
           </main>
         </Router>
 
