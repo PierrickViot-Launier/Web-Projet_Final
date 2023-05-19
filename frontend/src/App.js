@@ -2,9 +2,9 @@ import {
   BrowserRouter as Router,
   Route,
   Routes,
-  redirect,
+  Navigate,
 } from "react-router-dom";
-import React, { useEffect } from "react";
+import React from "react";
 import AccueilScreen from "./Screens/AccueilScreen";
 import DeroulementStagiaireScreen from "./Screens/DeroulementStagiaireScreen";
 import FAQScreen from "./Screens/FAQScreen";
@@ -64,10 +64,6 @@ function App() {
     setProfile("");
   }, []);
 
-  useEffect(() => {
-    return redirect("/");
-  }, []);
-
   return (
     <AuthContext.Provider
       value={{
@@ -87,6 +83,8 @@ function App() {
           <MainNavigation />
           <main>
             <Routes>
+              <Route path="*" element={<Navigate to="/" replace />} />
+
               <Route path="/" element={<AccueilScreen />} />
 
               <Route path="/FAQ" element={<FAQScreen />} />
