@@ -78,7 +78,7 @@ function App() {
           <MainNavigation />
           <main>
             <Routes>
-              <Route path="/" element={<AccueilScreen />} />
+              <Route path="/Accueil" element={<AccueilScreen />} />
 
               <Route path="/FAQ" element={<FAQScreen />} />
 
@@ -101,7 +101,7 @@ function App() {
               {isLoggedIn && isCordonnateur && (
                 <>
                   <Route path="/gererOffres" element={<OffresDeStage />} />
-                  
+
                   <Route path="/etudiants" element={<Etudiants />} />
                 </>
               )}

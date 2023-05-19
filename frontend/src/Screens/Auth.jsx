@@ -148,7 +148,7 @@ export default function Auth() {
           auth.profile
         );
 
-        navigate("/");
+        navigate("/Accueil");
       } catch (err) {
         messageErreur = err.message;
 
@@ -179,7 +179,7 @@ export default function Auth() {
             profil
           );
 
-          navigate("/");
+          navigate("/Accueil");
         } else {
           const reponseData = await sendRequest(
             "https://tp-synthese.onrender.com/api/etudiants/inscription",
@@ -203,7 +203,7 @@ export default function Auth() {
             profil
           );
 
-          navigate("/");
+          navigate("/Accueil");
         }
       } catch (err) {
         messageErreur = err;
