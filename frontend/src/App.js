@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import React from "react";
+import React, { useEffect } from "react";
 import AccueilScreen from "./Screens/AccueilScreen";
 import DeroulementStagiaireScreen from "./Screens/DeroulementStagiaireScreen";
 import FAQScreen from "./Screens/FAQScreen";
@@ -14,6 +14,7 @@ import Auth from "./Screens/Auth";
 import StagesDisponibles from "./Components/stages/StagesDisponibles";
 import OffresDeStage from "./Components/stages/OffresDeStage";
 import Etudiants from "./Components/etudiants/Etudiants";
+import { useNavigate } from "react-router-dom";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -57,6 +58,12 @@ function App() {
     setIsEtudiant(false);
     setIsCordonnateur(false);
     setProfile("");
+  }, []);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    navigate("/");
   }, []);
 
   return (
