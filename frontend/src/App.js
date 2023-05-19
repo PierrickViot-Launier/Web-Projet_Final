@@ -83,8 +83,6 @@ function App() {
           <MainNavigation />
           <main>
             <Routes>
-              <Route index element={<Navigate to="/" />} />
-
               <Route path="/" element={<AccueilScreen />} />
 
               <Route path="/FAQ" element={<FAQScreen />} />
