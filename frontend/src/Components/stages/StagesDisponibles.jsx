@@ -16,7 +16,7 @@ export default function StagesDisponibles() {
   const [lesStages, setLesStages] = useState([]);
 
   const [open, setOpen] = useState(false);
-  
+
   const [openError, setOpenError] = useState(false);
 
   const [openValid, setOpenValid] = useState(false);
@@ -48,7 +48,9 @@ export default function StagesDisponibles() {
   return (
     <div className="flex justify-center mt-8 mb-8 text-justify">
       <div className="max-w-6xl text-center">
-      <h2 className="text-2xl font-bold mb-2">Liste des stages disponibles</h2>
+        <h2 className="text-2xl font-bold mb-2">
+          Liste des stages disponibles
+        </h2>
         <ul className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2">
           {lesStages
             .filter((stage) => stage.etudiants.length < stage.nbPoste)
@@ -63,6 +65,7 @@ export default function StagesDisponibles() {
               >
                 <Card className="text-center max-w-xl rounded overflow-hidden shadow-lg flex flex-col bg-white hover:bg-gray">
                   <h3>{stage.nomEntreprise}</h3>
+
                   <h3>
                     {" "}
                     <span className="font-semibold">Personne contact: </span>
@@ -88,7 +91,7 @@ export default function StagesDisponibles() {
                     <span className="font-semibold">Postes disponibles: </span>
                     {stage.nbPoste}
                   </h3>
-                  
+
                   <h3>
                     <span className="font-semibold">Description: </span>
                     {stage.description}
@@ -126,9 +129,11 @@ export default function StagesDisponibles() {
           >
             Oui
           </Button>
+
           <Button onClick={() => setOpen(false)}>Non</Button>
         </DialogActions>
       </Dialog>
+
       <Dialog open={openError} onClose={() => setOpenError(false)}>
         <DialogTitle>{"Erreur lors de la postulation"}</DialogTitle>
 
@@ -139,7 +144,6 @@ export default function StagesDisponibles() {
         </DialogContent>
 
         <DialogActions>
-          
           <Button onClick={() => setOpenError(false)}>OK</Button>
         </DialogActions>
       </Dialog>
@@ -154,7 +158,6 @@ export default function StagesDisponibles() {
         </DialogContent>
 
         <DialogActions>
-          
           <Button onClick={() => setOpenValid(false)}>OK</Button>
         </DialogActions>
       </Dialog>

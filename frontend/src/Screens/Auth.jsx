@@ -89,6 +89,7 @@ export default function Auth() {
         },
         formState.inputs.email.isValid && formState.inputs.password.isValid
       );
+
       setProfil("");
       setDA("");
     } else {
@@ -103,6 +104,7 @@ export default function Auth() {
         false
       );
     }
+
     setIsLoginMode((prevMode) => !prevMode);
   };
 
@@ -121,6 +123,7 @@ export default function Auth() {
             "Content-Type": "application/json",
           }
         );
+
         switch (reponseData.typeUtilisateur) {
           case "etudiant":
             auth.isEtudiant = true;
@@ -137,6 +140,7 @@ export default function Auth() {
             auth.isEmployeur = false;
             auth.isCordonnateur = false;
         }
+
         auth.login(
           reponseData.utilisateur._id,
           auth.isEtudiant,
@@ -167,12 +171,14 @@ export default function Auth() {
               "Content-Type": "application/json",
             }
           );
+
           auth.login(
             reponseData.employeur._id,
             auth.isEtudiant,
             auth.isEmployeur,
             profil
           );
+
           navigate("/");
         } else {
           const reponseData = await sendRequest(
@@ -189,12 +195,14 @@ export default function Auth() {
               "Content-Type": "application/json",
             }
           );
+
           auth.login(
             reponseData.etudiant._id,
             auth.isEtudiant,
             auth.isEmployeur,
             profil
           );
+
           navigate("/");
         }
       } catch (err) {
@@ -211,6 +219,7 @@ export default function Auth() {
         {isLoginMode ? <h2>Connexion</h2> : <h2>Inscription</h2>}
 
         <hr />
+
         <form onSubmit={authSubmitHandler}>
           {!isLoginMode && (
             <Input
@@ -233,6 +242,7 @@ export default function Auth() {
             errorText="Entrez un courriel valide."
             onInput={inputHandler}
           />
+
           <Input
             element="input"
             id="password"
@@ -242,6 +252,7 @@ export default function Auth() {
             errorText="Entrez un mot de passe valide, au moins 5 caractères."
             onInput={inputHandler}
           />
+
           {!isLoginMode && (
             <React.Fragment>
               <div className="flex justify-center mb-4 text-center">
@@ -259,6 +270,7 @@ export default function Auth() {
                 >
                   Compte étudiant
                 </label>
+
                 <input
                   id="checkboxEmployeur"
                   type="checkbox"
@@ -274,6 +286,7 @@ export default function Auth() {
                   Compte employeur
                 </label>
               </div>
+
               <div id="inputsEtudiant" className="hidden">
                 <div className="relative z-0 w-full mb-6 group">
                   <input
@@ -313,6 +326,7 @@ export default function Auth() {
               </div>
             </React.Fragment>
           )}
+
           {isLoginMode ? (
             <Button type="submit" disabled={!formState.isValid}>
               Connexion
@@ -321,7 +335,8 @@ export default function Auth() {
             <Button
               type="submit"
               disabled={
-                (!formState.isValid) || (!formState.isValid && (profil !== "" || DA !== "") )
+                !formState.isValid ||
+                (!formState.isValid && (profil !== "" || DA !== ""))
               }
             >
               Inscription
@@ -334,14 +349,17 @@ export default function Auth() {
       </Card>
 
       <Dialog open={open} onClose={() => setOpen(false)}>
-        <DialogTitle>{isLoginMode ? "Erreur lors de la connexion" : "Erreur lors de l'inscription"}</DialogTitle>
-
-
+        <DialogTitle>
+          {isLoginMode
+            ? "Erreur lors de la connexion"
+            : "Erreur lors de l'inscription"}
+        </DialogTitle>
 
         <DialogContent>
-          
           <DialogContentText>
-            {isLoginMode ? "Courriel ou mot de passe invalide" : "Veuillez entrer tous les champs nécessaires."}
+            {isLoginMode
+              ? "Courriel ou mot de passe invalide"
+              : "Veuillez entrer tous les champs nécessaires."}
           </DialogContentText>
         </DialogContent>
 

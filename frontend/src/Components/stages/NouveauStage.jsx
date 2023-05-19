@@ -22,6 +22,7 @@ export default function NouveauStage() {
   const [remuneration, setRemuneration] = useState("");
   const [open, setOpen] = useState(false);
   const [openError, setOpenError] = useState(false);
+
   function personneHandler(event) {
     setPersonneContact(event.target.value);
   }
@@ -114,6 +115,7 @@ export default function NouveauStage() {
             Nom de la personne contact
           </label>
         </div>
+
         <div className="relative z-0 w-full mb-6 group">
           <input
             value={courriel}
@@ -131,6 +133,7 @@ export default function NouveauStage() {
             Courriel de la personne contact
           </label>
         </div>
+
         <div className="relative z-0 w-full mb-6 group">
           <input
             value={telephone}
@@ -148,6 +151,7 @@ export default function NouveauStage() {
             Numéro de téléphone de la personne contact
           </label>
         </div>
+
         <div className="relative z-0 w-full mb-6 group">
           <input
             value={nomEntreprise}
@@ -165,6 +169,7 @@ export default function NouveauStage() {
             Nom de l'entreprise
           </label>
         </div>
+
         <div className="relative z-0 w-full mb-6 group">
           <input
             value={adresse}
@@ -182,6 +187,7 @@ export default function NouveauStage() {
             Adresse de l'entreprise
           </label>
         </div>
+
         <div className="relative z-0 w-full mb-6 group">
           <select
             value={typeStage}
@@ -198,6 +204,7 @@ export default function NouveauStage() {
             </option>
           </select>
         </div>
+
         <div className="relative z-0 w-full mb-6 group">
           <input
             value={nbPoste}
@@ -215,6 +222,7 @@ export default function NouveauStage() {
             Nombre de postes disponibles
           </label>
         </div>
+
         <div className="relative z-0 w-full mb-6 group">
           <textarea
             value={description}
@@ -242,7 +250,7 @@ export default function NouveauStage() {
             placeholder=""
             onChange={remunerationHandler}
           />
-          
+
           <label
             htmlFor="remuneration"
             className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
