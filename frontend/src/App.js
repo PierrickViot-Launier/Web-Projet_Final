@@ -14,7 +14,6 @@ import Auth from "./Screens/Auth";
 import StagesDisponibles from "./Components/stages/StagesDisponibles";
 import OffresDeStage from "./Components/stages/OffresDeStage";
 import Etudiants from "./Components/etudiants/Etudiants";
-import { useNavigate } from "react-router-dom";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -58,12 +57,6 @@ function App() {
     setIsEtudiant(false);
     setIsCordonnateur(false);
     setProfile("");
-  }, []);
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    navigate("/");
   }, []);
 
   return (
