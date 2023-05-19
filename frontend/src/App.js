@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import React, { useEffect } from "react";
+import React from "react";
 import AccueilScreen from "./Screens/AccueilScreen";
 import DeroulementStagiaireScreen from "./Screens/DeroulementStagiaireScreen";
 import FAQScreen from "./Screens/FAQScreen";
