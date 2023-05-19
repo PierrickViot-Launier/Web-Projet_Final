@@ -116,8 +116,6 @@ function App() {
               )}
 
               {!isLoggedIn && <Route path="/Connexion" element={<Auth />} />}
-
-              <Route path="*" element={<AccueilScreen />} />
             </Routes>
           </main>
         </Router>
