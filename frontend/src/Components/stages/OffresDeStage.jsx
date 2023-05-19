@@ -24,7 +24,7 @@ export default function OffresDeStage() {
     if (auth.isCordonnateur) {
       try {
         const data = await axios.get(
-          "https://tp-synthese.onrender.com/api/stages/"
+          process.env.REACT_APP_BACKEND_URL + "/stages/"
         );
 
         const stages = data.data.stages;
@@ -34,7 +34,8 @@ export default function OffresDeStage() {
     } else {
       try {
         const data = await axios.get(
-          "https://tp-synthese.onrender.com/api/employeurs/" +
+          process.env.REACT_APP_BACKEND_URL +
+            "/employeurs/" +
             auth.userId +
             "/stages/"
         );
@@ -157,7 +158,7 @@ export default function OffresDeStage() {
 
               try {
                 await axios.delete(
-                  "https://tp-synthese.onrender.com/api/stages/" + stageId,
+                  process.env.REACT_APP_BACKEND_URL + "/stages/" + stageId,
                   { etudiantId: auth.userId, stageId }
                 );
 
@@ -176,7 +177,7 @@ export default function OffresDeStage() {
 
               try {
                 await axios.patch(
-                  "https://tp-synthese.onrender.com/api/stages/" + stageId,
+                  process.env.REACT_APP_BACKEND_URL + "/stages/" + stageId,
                   {
                     remuneration,
                     nbPoste,

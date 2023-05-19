@@ -28,7 +28,7 @@ export default function StagesDisponibles() {
   async function getStages(type) {
     try {
       const data = await axios.get(
-        "https://tp-synthese.onrender.com/api/stages/"
+        process.env.REACT_APP_BACKEND_URL + "/stages/"
       );
 
       const stages = data.data.stages;
@@ -120,7 +120,7 @@ export default function StagesDisponibles() {
 
               try {
                 await axios.patch(
-                  "https://tp-synthese.onrender.com/api/etudiants/postulation",
+                  process.env.REACT_APP_BACKEND_URL + "/etudiants/postulation",
                   { etudiantId: auth.userId, stageId }
                 );
                 setOpenValid(true);

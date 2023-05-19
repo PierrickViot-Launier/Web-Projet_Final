@@ -113,7 +113,7 @@ export default function Auth() {
     if (isLoginMode) {
       try {
         const reponseData = await sendRequest(
-          "https://tp-synthese.onrender.com/api/utilisateurs/connexion",
+          process.env.REACT_APP_BACKEND_URL + "/utilisateurs/connexion",
           "POST",
           JSON.stringify({
             courriel: formState.inputs.email.value,
@@ -148,7 +148,7 @@ export default function Auth() {
           auth.profile
         );
 
-        navigate("/Accueil");
+        navigate("/");
       } catch (err) {
         messageErreur = err.message;
 
@@ -160,7 +160,7 @@ export default function Auth() {
       try {
         if (auth.isEmployeur) {
           const reponseData = await sendRequest(
-            "https://tp-synthese.onrender.com/api/employeurs/inscription",
+            process.env.REACT_APP_BACKEND_URL + "/employeurs/inscription",
             "POST",
             JSON.stringify({
               nom: formState.inputs.name.value,
@@ -179,10 +179,10 @@ export default function Auth() {
             profil
           );
 
-          navigate("/Accueil");
+          navigate("/");
         } else {
           const reponseData = await sendRequest(
-            "https://tp-synthese.onrender.com/api/etudiants/inscription",
+            process.env.REACT_APP_BACKEND_URL + "/etudiants/inscription",
             "POST",
             JSON.stringify({
               DA: DA,
@@ -203,7 +203,7 @@ export default function Auth() {
             profil
           );
 
-          navigate("/Accueil");
+          navigate("/");
         }
       } catch (err) {
         messageErreur = err;

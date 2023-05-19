@@ -28,7 +28,7 @@ export default function Etudiants() {
   async function getEtudiants() {
     try {
       const data = await axios.get(
-        "https://tp-synthese.onrender.com/api/etudiants/"
+        process.env.REACT_APP_BACKEND_URL + "/etudiants/"
       );
 
       const etudiants = data.data.etudiants;
@@ -41,7 +41,7 @@ export default function Etudiants() {
   async function getStages(type) {
     try {
       const data = await axios.get(
-        "https://tp-synthese.onrender.com/api/stages/"
+        process.env.REACT_APP_BACKEND_URL + "/stages/"
       );
 
       const stages = data.data.stages;
@@ -61,7 +61,7 @@ export default function Etudiants() {
   async function getProfilEtudiant(id) {
     try {
       const data = await axios.get(
-        "https://tp-synthese.onrender.com/api/etudiants/" + id
+        process.env.REACT_APP_BACKEND_URL + "/etudiants/" + id
       );
 
       const etudiant = data.data.etudiant;

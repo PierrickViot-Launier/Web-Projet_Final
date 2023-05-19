@@ -11,7 +11,7 @@ export default function NavLinks() {
   return (
     <ul className="navLinks">
       <li>
-        <NavLink to={"/Accueil"}>Accueil</NavLink>
+        <NavLink to={"/"}>Accueil</NavLink>
       </li>
 
       <li>
@@ -64,7 +64,7 @@ export default function NavLinks() {
             onClick={() => {
               auth.logout();
 
-              navigate("/Accueil");
+              navigate("/");
             }}
           >
             Déconnexion

@@ -78,7 +78,7 @@ function App() {
           <MainNavigation />
           <main>
             <Routes>
-              <Route path="/Accueil" element={<AccueilScreen />} />
+              <Route path="/" element={<AccueilScreen />} />
 
               <Route path="/FAQ" element={<FAQScreen />} />
 

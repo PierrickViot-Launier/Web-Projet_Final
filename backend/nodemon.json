@@ -1,0 +1,7 @@
+{
+  "env": {
+    "DB_USER": "pierrickviolau",
+    "DB_PASSWORD": "iSuBAWIuyIkprf5Z",
+    "DB_NAME": "tpsynthese"
+  }
+}

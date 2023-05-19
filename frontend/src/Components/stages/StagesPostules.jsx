@@ -13,7 +13,8 @@ export default function StagesPostules() {
   async function getStages() {
     try {
       const data = await axios.get(
-        "https://tp-synthese.onrender.com/api/etudiants/" +
+        process.env.REACT_APP_BACKEND_URL +
+          "/etudiants/" +
           auth.userId +
           "/stages/"
       );

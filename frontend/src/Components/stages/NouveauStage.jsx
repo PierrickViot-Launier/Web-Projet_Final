@@ -77,7 +77,7 @@ export default function NouveauStage() {
 
     try {
       await axios.post(
-        "https://tp-synthese.onrender.com/api/stages/creation/",
+        process.env.REACT_APP_BACKEND_URL + "/stages/creation/",
         payload
       );
       setPersonneContact("");
