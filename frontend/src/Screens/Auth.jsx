@@ -113,7 +113,7 @@ export default function Auth() {
     if (isLoginMode) {
       try {
         const reponseData = await sendRequest(
-          "http://localhost:5000/api/utilisateurs/connexion",
+          "https://tp-synthese.onrender.com/api/utilisateurs/connexion",
           "POST",
           JSON.stringify({
             courriel: formState.inputs.email.value,
@@ -160,7 +160,7 @@ export default function Auth() {
       try {
         if (auth.isEmployeur) {
           const reponseData = await sendRequest(
-            "http://localhost:5000/api/employeurs/inscription",
+            "https://tp-synthese.onrender.com/api/employeurs/inscription",
             "POST",
             JSON.stringify({
               nom: formState.inputs.name.value,
@@ -182,7 +182,7 @@ export default function Auth() {
           navigate("/");
         } else {
           const reponseData = await sendRequest(
-            "http://localhost:5000/api/etudiants/inscription",
+            "https://tp-synthese.onrender.com/api/etudiants/inscription",
             "POST",
             JSON.stringify({
               DA: DA,

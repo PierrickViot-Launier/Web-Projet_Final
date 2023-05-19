@@ -13,7 +13,9 @@ export default function StagesPostules() {
   async function getStages() {
     try {
       const data = await axios.get(
-        "http://localhost:5000/api/etudiants/" + auth.userId + "/stages/"
+        "https://tp-synthese.onrender.com/api/etudiants/" +
+          auth.userId +
+          "/stages/"
       );
 
       const stages = data.data.stages;
@@ -62,7 +64,7 @@ export default function StagesPostules() {
                   <span className="font-semibold">Postes disponibles: </span>
                   {stage.nbPoste}
                 </h3>
-                
+
                 <h3>
                   <span className="font-semibold">Description: </span>
                   {stage.description}

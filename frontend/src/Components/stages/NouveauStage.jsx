@@ -76,7 +76,10 @@ export default function NouveauStage() {
     };
 
     try {
-      await axios.post("http://localhost:5000/api/stages/creation/", payload);
+      await axios.post(
+        "https://tp-synthese.onrender.com/api/stages/creation/",
+        payload
+      );
       setPersonneContact("");
       setCourriel("");
       setTelephone("");

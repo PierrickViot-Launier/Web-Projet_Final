@@ -23,7 +23,9 @@ export default function OffresDeStage() {
   async function getStages() {
     if (auth.isCordonnateur) {
       try {
-        const data = await axios.get("http://localhost:5000/api/stages/");
+        const data = await axios.get(
+          "https://tp-synthese.onrender.com/api/stages/"
+        );
 
         const stages = data.data.stages;
 
@@ -32,14 +34,16 @@ export default function OffresDeStage() {
     } else {
       try {
         const data = await axios.get(
-          "http://localhost:5000/api/employeurs/" + auth.userId + "/stages/"
+          "https://tp-synthese.onrender.com/api/employeurs/" +
+            auth.userId +
+            "/stages/"
         );
 
         const stages = data.data.stages;
 
         setLesStages(stages);
       } catch (err) {
-        setLesStages([])
+        setLesStages([]);
         console.log(err);
       }
     }
@@ -153,7 +157,7 @@ export default function OffresDeStage() {
 
               try {
                 await axios.delete(
-                  "http://localhost:5000/api/stages/" + stageId,
+                  "https://tp-synthese.onrender.com/api/stages/" + stageId,
                   { etudiantId: auth.userId, stageId }
                 );
 
@@ -172,7 +176,7 @@ export default function OffresDeStage() {
 
               try {
                 await axios.patch(
-                  "http://localhost:5000/api/stages/" + stageId,
+                  "https://tp-synthese.onrender.com/api/stages/" + stageId,
                   {
                     remuneration,
                     nbPoste,
