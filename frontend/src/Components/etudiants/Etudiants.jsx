@@ -179,7 +179,8 @@ export default function Etudiants() {
 
               try {
                 await axios.patch(
-                  "http://localhost:5000/api/etudiants/" + etudiantId,
+                  "https://tp-synthese.onrender.com/api/etudiants/" +
+                    etudiantId,
                   { stageId: stageSelectionne }
                 );
               } catch (err) {}
