@@ -3,7 +3,6 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 mongoose.set("strictQuery", true);
 
-
 const utilisateursRoutes = require("./routes/utilisateurs-routes");
 const etudiantsRoutes = require("./routes/etudiants-routes");
 const stagesRoutes = require("./routes/stages-route");
@@ -42,7 +41,9 @@ app.use((error, requete, reponse, next) => {
 });
 
 mongoose
-  .connect("mongodb://127.0.0.1:27017")
+  .connect(
+    "mongodb+srv://pierrickviolau:iSuBAWIuyIkprf5Z@tpsynthese.gns7bh6.mongodb.net/?retryWrites=true&w=majority"
+  )
   .then(() => {
     app.listen(5000);
     console.log("Connexion à la base de données réussie");
@@ -50,5 +51,3 @@ mongoose
   .catch((erreur) => {
     console.log(erreur);
   });
-
-
