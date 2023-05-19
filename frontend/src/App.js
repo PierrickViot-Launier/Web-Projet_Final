@@ -83,7 +83,7 @@ function App() {
           <MainNavigation />
           <main>
             <Routes>
-              <Route index element={<AccueilScreen />} />
+              <Route index element={<Navigate to="/" />} />
 
               <Route path="/" element={<AccueilScreen />} />
 
