@@ -83,7 +83,7 @@ function App() {
           <MainNavigation />
           <main>
             <Routes>
-              <Route path="*" element={<Navigate to="/" replace />} />
+              <Route index element={<AccueilScreen />} />
 
               <Route path="/" element={<AccueilScreen />} />
 
@@ -124,7 +124,6 @@ function App() {
 
               {!isLoggedIn && <Route path="/Connexion" element={<Auth />} />}
             </Routes>
-            redirect()
           </main>
         </Router>
 
